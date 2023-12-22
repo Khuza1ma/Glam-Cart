@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "251171441046",
+    "project_id": "glam-cart",
+    "storage_bucket": "glam-cart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251171441046:android:70eec3096b4d3a95e135b7",
+        "android_client_info": {
+          "package_name": "com.example.glam_cart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVDyRFqs-s7cvLbF_aGKUKIRThdc4wFS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
