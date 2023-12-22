@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -132,6 +133,29 @@ class SignupScreen extends GetView<SignupController> {
                       },
                     ),
                     20.verticalSpace,
+                    Row(
+                      children: [
+                        CupertinoSwitch(
+                          activeColor: AppColors.kF83758,
+                          value: controller.isAdminAccount(),
+                          onChanged: (value) {
+                            controller.isAdminAccount.value =
+                                !controller.isAdminAccount();
+                          },
+                        ),
+                        15.horizontalSpace,
+                        const Text(
+                          'Create a Admin Account',
+                          style: TextStyle(
+                            color: AppColors.k575757,
+                            fontSize: 15,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    20.verticalSpace,
                     RichText(
                       text: const TextSpan(
                         text: 'By clicking the ',
@@ -163,7 +187,7 @@ class SignupScreen extends GetView<SignupController> {
                         ],
                       ),
                     ),
-                    40.verticalSpace,
+                    30.verticalSpace,
                     MainButton(
                       onPressed: () {
                         if (controller.formKey.currentState?.validate() ??
@@ -175,7 +199,7 @@ class SignupScreen extends GetView<SignupController> {
                       isLoading: controller.isLoading.value,
                       text: 'Create Account',
                     ),
-                    40.verticalSpace,
+                    30.verticalSpace,
                     const Center(
                       child: Text(
                         '- OR Continue with -',

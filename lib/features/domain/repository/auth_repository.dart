@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../data/models/user_model.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
@@ -6,21 +8,40 @@ class AuthRepository {
   AuthRepository({required FirebaseAuth firebaseAuth})
       : _firebaseAuth = firebaseAuth;
 
-  Future<FirebaseAuthResult> signUp({
+  Future<UserModel?> signUp({
     required String email,
     required String password,
+    required bool isAdmin,
   }) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      var response = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return FirebaseAuthResult(success: true);
-    } on FirebaseAuthException catch (e) {
-      return FirebaseAuthResult(
-        success: false,
-        errorCode: e.code,
-      );
+      if (response.user != null) {
+        var user = response.user!;
+        UserModel userData = UserModel(
+          email: email,
+          name: user.displayName ?? '',
+          uid: user.uid,
+          isAdmin: isAdmin,
+        );
+        if (isAdmin) {
+          await FirebaseFirestore.instance
+              .collection('/sellers')
+              .doc(user.uid)
+              .set(userData.toMap());
+        } else {
+          await FirebaseFirestore.instance
+              .collection('/users')
+              .doc(user.uid)
+              .set(userData.toMap());
+        }
+
+        return userData;
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

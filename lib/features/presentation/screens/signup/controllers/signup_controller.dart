@@ -8,6 +8,7 @@ class SignupController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isPasswordVisible = true.obs;
   RxBool isConfirmPasswordVisible = true.obs;
+  RxBool isAdminAccount = false.obs;
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -25,6 +26,7 @@ class SignupController extends GetxController {
         await AuthRepository(firebaseAuth: _auth).signUp(
           email: email,
           password: password,
+          isAdmin: isAdminAccount.value,
         );
         isLoading.value = false;
       }
