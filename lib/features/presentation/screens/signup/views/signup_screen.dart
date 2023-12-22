@@ -172,6 +172,7 @@ class SignupScreen extends GetView<SignupController> {
                           Get.offAndToNamed(Routes.home);
                         }
                       },
+                      isLoading: controller.isLoading.value,
                       text: 'Create Account',
                     ),
                     40.verticalSpace,

@@ -15,6 +15,7 @@ class SignupController extends GetxController {
 
   Future createAccount() async {
     try {
+      isLoading.value = true;
       if (formKey.currentState?.saveAndValidate() ?? false) {
         var formData = formKey.currentState?.value;
         final email = formData!['username'];
@@ -25,6 +26,7 @@ class SignupController extends GetxController {
           email: email,
           password: password,
         );
+        isLoading.value = false;
       }
     } catch (e) {
       print(e);

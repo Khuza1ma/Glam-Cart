@@ -108,11 +108,11 @@ class LoginScreen extends GetView<LoginController> {
                     onPressed: () {
                       if (controller.formKey.currentState?.validate() ??
                           false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Success')),
-                        );
+                        controller.logInToAccount();
+                        Get.offAndToNamed(Routes.home);
                       }
                     },
+                    isLoading: controller.isLoading.value,
                     text: 'Login',
                   ),
                   70.verticalSpace,
