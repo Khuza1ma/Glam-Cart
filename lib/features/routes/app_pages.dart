@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:glam_cart/features/presentation/screens/home/bindings/home_binding.dart';
+import 'package:glam_cart/features/presentation/screens/home/views/home_screen.dart';
 import 'package:glam_cart/features/presentation/screens/login/bindings/login_binding.dart';
 import 'package:glam_cart/features/presentation/screens/login/views/login_screen.dart';
 import 'package:glam_cart/features/presentation/screens/signup/bindings/signup_binding.dart';
@@ -20,6 +22,11 @@ class AppPages {
       name: _Paths.signup,
       page: () => const SignupScreen(),
       binding: SignupBinding(),
+    ),
+    GetPage(
+      name: _Paths.home,
+      page: () => const HomeScreen(),
+      binding: HomeBinding(),
     ),
   ];
 }

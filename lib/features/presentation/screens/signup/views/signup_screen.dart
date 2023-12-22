@@ -43,7 +43,7 @@ class SignupScreen extends GetView<SignupController> {
                       preFixIcon: Image.asset(AppAssets.username),
                       validate: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Please a enter email';
+                          return 'Please enter a email';
                         } else if (!GetUtils.isEmail(value)) {
                           return 'Please enter a valid email';
                         }
@@ -165,15 +165,15 @@ class SignupScreen extends GetView<SignupController> {
                     ),
                     40.verticalSpace,
                     MainButton(
-                        onPressed: () {
-                          if (controller.formKey.currentState?.validate() ??
-                              false) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Success')),
-                            );
-                          }
-                        },
-                        text: 'Create Account'),
+                      onPressed: () {
+                        if (controller.formKey.currentState?.validate() ??
+                            false) {
+                          controller.createAccount();
+                          Get.offAndToNamed(Routes.home);
+                        }
+                      },
+                      text: 'Create Account',
+                    ),
                     40.verticalSpace,
                     const Center(
                       child: Text(
