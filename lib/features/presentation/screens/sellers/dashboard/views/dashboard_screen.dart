@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
-import 'package:glam_cart/features/presentation/screens/home/controllers/home_controller.dart';
+import '../controllers/dashboard_controller.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({super.key});
+class DashboardScreen extends GetView<DashboardController> {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

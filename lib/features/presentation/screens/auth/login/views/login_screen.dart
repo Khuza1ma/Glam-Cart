@@ -4,11 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
 import 'package:glam_cart/core/constants/app_images.dart';
-import 'package:glam_cart/features/presentation/screens/login/controllers/login_controller.dart';
 import 'package:glam_cart/features/presentation/widgets/app_textfield.dart';
 import 'package:glam_cart/features/presentation/widgets/main_button.dart';
 import 'package:glam_cart/features/presentation/widgets/widget_ext.dart';
 import 'package:glam_cart/features/routes/app_pages.dart';
+
+import '../controllers/login_controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
   const LoginScreen({super.key});
