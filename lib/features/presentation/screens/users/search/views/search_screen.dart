@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
-import '../controllers/home_controller.dart';
+import '../controllers/search_controller.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({super.key});
+class SearchScreen extends GetView<SearchesController> {
+  const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
-import '../controllers/home_controller.dart';
+import '../controllers/setting_controller.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({super.key});
+class SettingScreen extends GetView<SettingController> {
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -110,7 +110,7 @@ class LoginScreen extends GetView<LoginController> {
                       if (controller.formKey.currentState?.validate() ??
                           false) {
                         controller.logInToAccount();
-                        Get.offAndToNamed(Routes.home);
+                        Get.offAndToNamed(Routes.navigation);
                       }
                     },
                     isLoading: controller.isLoading.value,

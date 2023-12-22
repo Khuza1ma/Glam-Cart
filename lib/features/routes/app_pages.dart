@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:glam_cart/features/presentation/screens/users/navigation/bindings/navigation_binding.dart';
+import 'package:glam_cart/features/presentation/screens/users/navigation/views/navigation_screen.dart';
 
 import '../presentation/screens/auth/login/bindings/login_binding.dart';
 import '../presentation/screens/auth/login/views/login_screen.dart';
@@ -28,6 +30,11 @@ class AppPages {
       name: _Paths.home,
       page: () => const HomeScreen(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.navigation,
+      page: () => const NavigationScreen(),
+      binding: NavigationBinding(),
     ),
   ];
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
-import '../controllers/home_controller.dart';
+import '../controllers/cart_controller.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({super.key});
+class CartScreen extends GetView<CartController> {
+  const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
