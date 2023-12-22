@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
 import 'package:glam_cart/core/constants/app_images.dart';
 import 'package:glam_cart/features/presentation/screens/login/controllers/login_controller.dart';
-import 'package:glam_cart/features/presentation/screens/signup/views/signup_screen.dart';
 import 'package:glam_cart/features/presentation/widgets/app_textfield.dart';
 import 'package:glam_cart/features/presentation/widgets/main_button.dart';
 import 'package:glam_cart/features/presentation/widgets/widget_ext.dart';
@@ -45,6 +44,7 @@ class LoginScreen extends GetView<LoginController> {
                     name: 'password',
                     hintText: 'Password',
                     hasBorder: true,
+                    isObscure: controller.isPasswordVisible.value,
                     contentPadding: const EdgeInsets.symmetric(vertical: 20),
                     preFixIcon: IconButton(
                       onPressed: null,
@@ -64,8 +64,8 @@ class LoginScreen extends GetView<LoginController> {
                       },
                       icon: Icon(
                         controller.isPasswordVisible.value
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
                         color: AppColors.k626262,
                       ),
                     ),
