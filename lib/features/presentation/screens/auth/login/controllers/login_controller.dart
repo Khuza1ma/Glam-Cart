@@ -20,7 +20,8 @@ class LoginController extends GetxController {
         final email = formData!['username'];
         final password = formData['password'];
 
-        FirebaseAuthResult result = await AuthRepository(firebaseAuth: _auth).logIn(
+        FirebaseAuthResult result =
+            await AuthRepository(firebaseAuth: _auth).logIn(
           email: email,
           password: password,
         );
@@ -28,9 +29,10 @@ class LoginController extends GetxController {
         isLoading.value = false;
 
         if (result.success) {
-          Get.offAllNamed(Routes.home);
+          Get.offAllNamed(Routes.navigation);
         } else {
-          if (result.errorCode == 'user-not-found' || result.errorCode == 'wrong-password') {
+          if (result.errorCode == 'user-not-found' ||
+              result.errorCode == 'wrong-password') {
             Get.snackbar(
               'Login Failed',
               'Invalid email or password.',
@@ -39,7 +41,7 @@ class LoginController extends GetxController {
           } else {
             Get.snackbar(
               'Login Failed',
-              result.errorMessage??'Some Error Occurred',
+              result.errorMessage ?? 'Some Error Occurred',
               snackPosition: SnackPosition.BOTTOM,
             );
           }
@@ -57,5 +59,4 @@ class LoginController extends GetxController {
       );
     }
   }
-
 }

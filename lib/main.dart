@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
+import 'features/presentation/screens/auth/login/controllers/auth_controller.dart';
 import 'features/routes/app_pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.put(AuthController());
   runApp(const MyApp());
 }
 
@@ -17,11 +19,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Glam Cart',
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-      debugShowCheckedModeBanner: false,
+    final AuthController authController = Get.find<AuthController>();
+
+    return Obx(
+      () {
+        String initialRoute;
+        if (authController.isAuthenticated.value) {
+          initialRoute =
+              authController.isAdmin.value ? Routes.home : Routes.navigation;
+        } else {
+          initialRoute = AppPages.INITIAL;
+        }
+        return GetMaterialApp(
+          title: 'Glam Cart',
+          initialRoute: initialRoute,
+          getPages: AppPages.routes,
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

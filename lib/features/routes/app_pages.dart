@@ -6,6 +6,8 @@ import '../presentation/screens/auth/login/bindings/login_binding.dart';
 import '../presentation/screens/auth/login/views/login_screen.dart';
 import '../presentation/screens/auth/signup/bindings/signup_binding.dart';
 import '../presentation/screens/auth/signup/views/signup_screen.dart';
+import '../presentation/screens/sellers/dashboard/bindings/dashboard_binding.dart';
+import '../presentation/screens/sellers/dashboard/views/dashboard_screen.dart';
 import '../presentation/screens/users/home/bindings/home_binding.dart';
 import '../presentation/screens/users/home/views/home_screen.dart';
 part 'app_routes.dart';
@@ -35,6 +37,11 @@ class AppPages {
       name: _Paths.navigation,
       page: () => const NavigationScreen(),
       binding: NavigationBinding(),
+    ),
+    GetPage(
+      name: _Paths.dashboard,
+      page: () => const DashboardScreen(),
+      binding: DashboardBinding(),
     ),
   ];
 }
