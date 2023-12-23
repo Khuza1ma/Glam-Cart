@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:glam_cart/features/presentation/screens/users/navigation/bindings/navigation_binding.dart';
 import 'package:glam_cart/features/presentation/screens/users/navigation/views/navigation_screen.dart';
-
 import '../presentation/screens/auth/login/bindings/login_binding.dart';
 import '../presentation/screens/auth/login/views/login_screen.dart';
 import '../presentation/screens/auth/signup/bindings/signup_binding.dart';

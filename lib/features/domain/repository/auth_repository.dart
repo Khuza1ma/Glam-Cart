@@ -71,6 +71,11 @@ class AuthRepository {
       );
     }
   }
+
+  Future<void> logOut() async {
+    await _firebaseAuth.signOut();
+  }
+
 }
 
 class FirebaseAuthResult {
