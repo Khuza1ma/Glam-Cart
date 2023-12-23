@@ -14,7 +14,11 @@ class WishListScreen extends GetView<WishListController> {
         child: SingleChildScrollView(
           padding: EdgeInsets.all(30),
           child: Column(
-            children: [Center(child: Text('Home'))],
+            children: [
+              Center(
+                child: Text('Wishlist'),
+              )
+            ],
           ),
         ),
       ),
