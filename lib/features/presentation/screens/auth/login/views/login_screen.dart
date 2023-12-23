@@ -106,11 +106,10 @@ class LoginScreen extends GetView<LoginController> {
                   ),
                   50.verticalSpace,
                   MainButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (controller.formKey.currentState?.validate() ??
                           false) {
-                        controller.logInToAccount();
-                        Get.offAndToNamed(Routes.navigation);
+                        await controller.logInToAccount();
                       }
                     },
                     isLoading: controller.isLoading.value,

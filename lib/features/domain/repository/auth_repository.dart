@@ -32,8 +32,7 @@ class AuthRepository {
             .doc(user.uid)
             .set(userData.toMap());
         return userData;
-      }
-      else {
+      } else {
         throw FirebaseAuthException(
           code: 'USER_NULL',
           message: 'User creation succeeded but user is null',
@@ -47,7 +46,6 @@ class AuthRepository {
       return null;
     }
   }
-
 
   Future<FirebaseAuthResult> logIn({
     required String email,
@@ -63,6 +61,13 @@ class AuthRepository {
       return FirebaseAuthResult(
         success: false,
         errorCode: e.code,
+        errorMessage: e.message,
+      );
+    } catch (e) {
+      return FirebaseAuthResult(
+        success: false,
+        errorCode: 'general_error',
+        errorMessage:'An unexpected error occurred',
       );
     }
   }
@@ -71,9 +76,11 @@ class AuthRepository {
 class FirebaseAuthResult {
   final bool success;
   final String? errorCode;
+  final String? errorMessage;
 
   FirebaseAuthResult({
     required this.success,
     this.errorCode,
+    this.errorMessage,
   });
 }

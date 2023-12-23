@@ -195,7 +195,7 @@ class SignupScreen extends GetView<SignupController> {
                           false) {
                         await controller.createAccount();
                         if (controller.user.value != null) {
-                          Get.offAndToNamed(Routes.home);
+                          Get.offAndToNamed(Routes.navigation);
                         }
                       }
                     },
