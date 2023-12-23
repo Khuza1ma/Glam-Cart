@@ -8,6 +8,10 @@ abstract class Routes {
   static const home = '/home';
   static const navigation = '/navigation';
   static const dashboard = '/dashboard';
+  static const wishlist = '/wishlist';
+  static const cart = '/cart';
+  static const search = '/search';
+  static const setting = '/setting';
 }
 
 abstract class _Paths {
@@ -17,4 +21,8 @@ abstract class _Paths {
   static const home = '/home';
   static const navigation = '/navigation';
   static const dashboard = '/dashboard';
+  static const wishlist = '/wishlist';
+  static const cart = '/cart';
+  static const search = '/search';
+  static const setting = '/setting';
 }

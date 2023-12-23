@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         String initialRoute;
         if (authController.isAuthenticated.value) {
           initialRoute =
-              authController.isAdmin.value ? Routes.home : Routes.navigation;
+              authController.isAdmin.value ? Routes.dashboard : Routes.navigation;
         } else {
           initialRoute = AppPages.INITIAL;
         }
