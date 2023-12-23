@@ -22,28 +22,32 @@ class AuthRepository {
         var user = response.user!;
         UserModel userData = UserModel(
           email: email,
-          name: user.displayName ?? '',
+          name: user.displayName ?? 'Unknown',
           uid: user.uid,
           isAdmin: isAdmin,
         );
-        if (isAdmin) {
-          await FirebaseFirestore.instance
-              .collection('/sellers')
-              .doc(user.uid)
-              .set(userData.toMap());
-        } else {
-          await FirebaseFirestore.instance
-              .collection('/users')
-              .doc(user.uid)
-              .set(userData.toMap());
-        }
-
+        String collectionPath = isAdmin ? '/sellers' : '/users';
+        await FirebaseFirestore.instance
+            .collection(collectionPath)
+            .doc(user.uid)
+            .set(userData.toMap());
         return userData;
       }
+      else {
+        throw FirebaseAuthException(
+          code: 'USER_NULL',
+          message: 'User creation succeeded but user is null',
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      print('Firebase Auth Exception: ${e.code}, ${e.message}');
+      return null;
     } catch (e) {
-      print(e);
+      print('General Exception: $e');
+      return null;
     }
   }
+
 
   Future<FirebaseAuthResult> logIn({
     required String email,

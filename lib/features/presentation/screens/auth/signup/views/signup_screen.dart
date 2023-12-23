@@ -21,267 +21,271 @@ class SignupScreen extends GetView<SignupController> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(30),
-          child: Obx(() => FormBuilder(
-                key: controller.formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Create an \naccount',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 36,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
+          child: Obx(
+            () => FormBuilder(
+              key: controller.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Create an \naccount',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 36,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  35.verticalSpace,
+                  AppTextFormField(
+                    name: 'username',
+                    hintText: 'Username or Email',
+                    hasBorder: true,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                    preFixIcon: Image.asset(AppAssets.username),
+                    validate: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter a email';
+                      } else if (!GetUtils.isEmail(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                  30.verticalSpace,
+                  AppTextFormField(
+                    name: 'password',
+                    hintText: 'Password',
+                    hasBorder: true,
+                    controller: controller.passwordController,
+                    isObscure: controller.isPasswordVisible.value,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                    preFixIcon: IconButton(
+                      onPressed: null,
+                      icon: Image.asset(
+                        AppAssets.password,
+                        height: 24,
+                        width: 24,
                       ),
                     ),
-                    35.verticalSpace,
-                    AppTextFormField(
-                      name: 'username',
-                      hintText: 'Username or Email',
-                      hasBorder: true,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 20),
-                      preFixIcon: Image.asset(AppAssets.username),
-                      validate: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a email';
-                        } else if (!GetUtils.isEmail(value)) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                    ),
-                    30.verticalSpace,
-                    AppTextFormField(
-                      name: 'password',
-                      hintText: 'Password',
-                      hasBorder: true,
-                      controller: controller.passwordController,
-                      isObscure: controller.isPasswordVisible.value,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 20),
-                      preFixIcon: IconButton(
-                        onPressed: null,
-                        icon: Image.asset(
-                          AppAssets.password,
-                          height: 24,
-                          width: 24,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        splashColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed: () {
-                          controller.isPasswordVisible.value =
-                              !controller.isPasswordVisible();
-                        },
-                        icon: Icon(
-                          controller.isPasswordVisible()
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: AppColors.k626262,
-                        ),
-                      ),
-                      validate: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a password';
-                        } else if (value.trim().length < 8) {
-                          return 'Password must contain at least 8 characters';
-                        }
-                        return null;
-                      },
-                    ),
-                    30.verticalSpace,
-                    AppTextFormField(
-                      name: 'confirmPassword',
-                      hintText: 'ConfirmPassword',
-                      hasBorder: true,
-                      controller: controller.confirmPasswordController,
-                      isObscure: controller.isConfirmPasswordVisible.value,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 20),
-                      preFixIcon: IconButton(
-                        onPressed: null,
-                        icon: Image.asset(
-                          AppAssets.password,
-                          height: 24,
-                          width: 24,
-                        ),
-                      ),
-                      suffixIcon: IconButton(
-                        splashColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onPressed: () {
-                          controller.isConfirmPasswordVisible.value =
-                              !controller.isConfirmPasswordVisible();
-                        },
-                        icon: Icon(
-                          controller.isConfirmPasswordVisible()
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: AppColors.k626262,
-                        ),
-                      ),
-                      validate: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter confirm password';
-                        } else if (controller.passwordController.text.trim() !=
-                            controller.confirmPasswordController.text.trim()) {
-                          return 'Password did not matched';
-                        }
-                        return null;
-                      },
-                    ),
-                    20.verticalSpace,
-                    Row(
-                      children: [
-                        CupertinoSwitch(
-                          activeColor: AppColors.kF83758,
-                          value: controller.isAdminAccount(),
-                          onChanged: (value) {
-                            controller.isAdminAccount.value =
-                                !controller.isAdminAccount();
-                          },
-                        ),
-                        15.horizontalSpace,
-                        const Text(
-                          'Create a Admin Account',
-                          style: TextStyle(
-                            color: AppColors.k575757,
-                            fontSize: 15,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    20.verticalSpace,
-                    RichText(
-                      text: const TextSpan(
-                        text: 'By clicking the ',
-                        style: TextStyle(
-                          color: AppColors.k676767,
-                          fontSize: 12,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w400,
-                        ),
-                        children: <InlineSpan>[
-                          TextSpan(
-                            text: 'Register ',
-                            style: TextStyle(
-                              color: AppColors.kFF4B26,
-                              fontSize: 12,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'button, you agree \nto the public offer',
-                            style: TextStyle(
-                              color: AppColors.k676767,
-                              fontSize: 12,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    30.verticalSpace,
-                    MainButton(
+                    suffixIcon: IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onPressed: () {
-                        if (controller.formKey.currentState?.validate() ??
-                            false) {
-                          controller.createAccount();
-                          Get.offAndToNamed(Routes.home);
-                        }
+                        controller.isPasswordVisible.value =
+                            !controller.isPasswordVisible();
                       },
-                      isLoading: controller.isLoading.value,
-                      text: 'Create Account',
+                      icon: Icon(
+                        controller.isPasswordVisible()
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: AppColors.k626262,
+                      ),
                     ),
-                    30.verticalSpace,
-                    const Center(
-                      child: Text(
-                        '- OR Continue with -',
+                    validate: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter a password';
+                      } else if (value.trim().length < 8) {
+                        return 'Password must contain at least 8 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                  30.verticalSpace,
+                  AppTextFormField(
+                    name: 'confirmPassword',
+                    hintText: 'ConfirmPassword',
+                    hasBorder: true,
+                    controller: controller.confirmPasswordController,
+                    isObscure: controller.isConfirmPasswordVisible.value,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                    preFixIcon: IconButton(
+                      onPressed: null,
+                      icon: Image.asset(
+                        AppAssets.password,
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
+                    suffixIcon: IconButton(
+                      splashColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        controller.isConfirmPasswordVisible.value =
+                            !controller.isConfirmPasswordVisible();
+                      },
+                      icon: Icon(
+                        controller.isConfirmPasswordVisible()
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: AppColors.k626262,
+                      ),
+                    ),
+                    validate: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter confirm password';
+                      } else if (controller.passwordController.text.trim() !=
+                          controller.confirmPasswordController.text.trim()) {
+                        return 'Password did not matched';
+                      }
+                      return null;
+                    },
+                  ),
+                  20.verticalSpace,
+                  Row(
+                    children: [
+                      CupertinoSwitch(
+                        activeColor: AppColors.kF83758,
+                        value: controller.isAdminAccount(),
+                        onChanged: (value) {
+                          controller.isAdminAccount.value =
+                              !controller.isAdminAccount();
+                        },
+                      ),
+                      15.horizontalSpace,
+                      const Text(
+                        'Create a Admin Account',
                         style: TextStyle(
                           color: AppColors.k575757,
-                          fontSize: 12,
+                          fontSize: 15,
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                    20.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 54,
-                          height: 54,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: ShapeDecoration(
-                            color: AppColors.kFBF3F5,
-                            shape: RoundedRectangleBorder(
-                              side: const BorderSide(
-                                  width: 1, color: AppColors.kF73658),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                          ),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Image.asset(
-                              AppAssets.google,
-                              height: 24,
-                              width: 24,
-                            ),
+                    ],
+                  ),
+                  20.verticalSpace,
+                  RichText(
+                    text: const TextSpan(
+                      text: 'By clicking the ',
+                      style: TextStyle(
+                        color: AppColors.k676767,
+                        fontSize: 12,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w400,
+                      ),
+                      children: <InlineSpan>[
+                        TextSpan(
+                          text: 'Register ',
+                          style: TextStyle(
+                            color: AppColors.kFF4B26,
+                            fontSize: 12,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                        10.horizontalSpace,
-                        SvgPicture.asset(AppAssets.apple),
-                        10.horizontalSpace,
-                        SvgPicture.asset(AppAssets.facebook),
+                        TextSpan(
+                          text: 'button, you agree \nto the public offer',
+                          style: TextStyle(
+                            color: AppColors.k676767,
+                            fontSize: 12,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                       ],
                     ),
-                    30.verticalSpace,
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () {
-                        Get.offAndToNamed(Routes.login);
-                      },
-                      child: Center(
-                        child: RichText(
-                          text: const TextSpan(
-                            text: 'I Already Have an Account',
-                            style: TextStyle(
-                              color: Color(0xFF575757),
-                              fontSize: 14,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w400,
-                            ),
-                            children: <InlineSpan>[
-                              WidgetSpan(
-                                child: SizedBox(width: 5),
-                              ),
-                              TextSpan(
-                                text: 'Login',
-                                style: TextStyle(
-                                  color: Color(0xFFF73658),
-                                  fontSize: 14,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w600,
-                                  height: 0,
-                                ),
-                              ),
-                            ],
+                  ),
+                  30.verticalSpace,
+                  MainButton(
+                    onPressed: () async {
+                      if (controller.formKey.currentState?.validate() ??
+                          false) {
+                        await controller.createAccount();
+                        if (controller.user.value != null) {
+                          Get.offAndToNamed(Routes.home);
+                        }
+                      }
+                    },
+                    isLoading: controller.isLoading.value,
+                    text: 'Create Account',
+                  ),
+                  30.verticalSpace,
+                  const Center(
+                    child: Text(
+                      '- OR Continue with -',
+                      style: TextStyle(
+                        color: AppColors.k575757,
+                        fontSize: 12,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  20.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 54,
+                        height: 54,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: ShapeDecoration(
+                          color: AppColors.kFBF3F5,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                width: 1, color: AppColors.kF73658),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Image.asset(
+                            AppAssets.google,
+                            height: 24,
+                            width: 24,
                           ),
                         ),
                       ),
+                      10.horizontalSpace,
+                      SvgPicture.asset(AppAssets.apple),
+                      10.horizontalSpace,
+                      SvgPicture.asset(AppAssets.facebook),
+                    ],
+                  ),
+                  30.verticalSpace,
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      Get.offAndToNamed(Routes.login);
+                    },
+                    child: Center(
+                      child: RichText(
+                        text: const TextSpan(
+                          text: 'I Already Have an Account',
+                          style: TextStyle(
+                            color: Color(0xFF575757),
+                            fontSize: 14,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w400,
+                          ),
+                          children: <InlineSpan>[
+                            WidgetSpan(
+                              child: SizedBox(width: 5),
+                            ),
+                            TextSpan(
+                              text: 'Login',
+                              style: TextStyle(
+                                color: Color(0xFFF73658),
+                                fontSize: 14,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                height: 0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
