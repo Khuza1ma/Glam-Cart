@@ -32,7 +32,6 @@ class NavigationController extends GetxController {
       Get.put(HomeController());
     } else if (index == 1) {
       Get.put(WishListController());
-
     } else if (index == 2) {
       Get.put(CartController());
     } else if (index == 3) {

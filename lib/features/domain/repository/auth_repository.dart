@@ -76,6 +76,27 @@ class AuthRepository {
     await _firebaseAuth.signOut();
   }
 
+  Future<UserModel?> fetchUserModel(String userId) async {
+    try {
+      var userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      if (userDoc.exists) {
+        return UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
+      } else {
+        var sellerDoc = await FirebaseFirestore.instance.collection('sellers').doc(userId).get();
+        if (sellerDoc.exists) {
+          return UserModel.fromMap(sellerDoc.data() as Map<String, dynamic>);
+        }
+      }
+      return null;
+    } catch (e) {
+      print('Error fetching user model: $e');
+      return null;
+    }
+  }
+
+
+
+
 }
 
 class FirebaseAuthResult {

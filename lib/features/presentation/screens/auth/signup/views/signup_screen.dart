@@ -191,12 +191,8 @@ class SignupScreen extends GetView<SignupController> {
                   30.verticalSpace,
                   MainButton(
                     onPressed: () async {
-                      if (controller.formKey.currentState?.validate() ??
-                          false) {
+                      if (controller.formKey.currentState?.validate() ?? false) {
                         await controller.createAccount();
-                        if (controller.user.value != null) {
-                          Get.offAndToNamed(Routes.navigation);
-                        }
                       }
                     },
                     isLoading: controller.isLoading.value,
