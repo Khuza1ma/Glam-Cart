@@ -10,10 +10,12 @@ class TabScreen extends GetView<TabsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kF5F5F5,
-      body: Obx(() => IndexedStack(
-            index: controller.selectedIndex.value,
-            children: controller.screens,
-          )),
+      body: Obx(
+        () => IndexedStack(
+          index: controller.selectedIndex.value,
+          children: controller.screens,
+        ),
+      ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           splashColor: Colors.transparent,
