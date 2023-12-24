@@ -34,7 +34,7 @@ class LoginController extends GetxController {
           isLoading.value = false;
 
           if (userModel != null && userModel.isAdmin) {
-            Get.offAllNamed(Routes.dashboard);
+            Get.offAllNamed(Routes.tab);
           } else {
             Get.offAllNamed(Routes.navigation);
           }

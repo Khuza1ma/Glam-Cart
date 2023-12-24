@@ -24,7 +24,6 @@ import '../presentation/screens/sellers/dashboard/views/dashboard_screen.dart';
 import '../presentation/screens/sellers/tab/bindings/tab_binding.dart';
 import '../presentation/screens/users/home/bindings/home_binding.dart';
 import '../presentation/screens/users/home/views/home_screen.dart';
-
 part 'app_routes.dart';
 
 class AppPages {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
+import '../../../../widgets/main_button.dart';
 import '../controllers/dashboard_controller.dart';
 
 class DashboardScreen extends GetView<DashboardController> {
@@ -14,7 +15,12 @@ class DashboardScreen extends GetView<DashboardController> {
         child: SingleChildScrollView(
             padding: const EdgeInsets.all(30),
             child: Column(
-              children: [Container()],
+              children: [MainButton(
+                onPressed: () async {
+                  await controller.logoutUser();
+                },
+                text: 'Logout',
+              )],
             )),
       ),
     );

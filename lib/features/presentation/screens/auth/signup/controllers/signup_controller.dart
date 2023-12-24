@@ -37,7 +37,7 @@ class SignupController extends GetxController {
         if (userData != null) {
           user.value = userData;
           if (userData.isAdmin) {
-            Get.offAllNamed(Routes.dashboard);
+            Get.offAllNamed(Routes.tab);
           } else {
             Get.offAllNamed(Routes.navigation);
           }

@@ -26,12 +26,12 @@ class TabScreen extends GetView<TabsController> {
           () => BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               const BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
+                icon: Icon(Icons.dashboard_outlined),
+                label: 'Dashboard',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_outline),
-                label: 'Wishlist',
+                icon: Icon(Icons.feedback_outlined),
+                label: 'Product',
               ),
               BottomNavigationBarItem(
                 icon: AnimatedContainer(
@@ -46,17 +46,17 @@ class TabScreen extends GetView<TabsController> {
                     ),
                   ),
                   duration: const Duration(milliseconds: 250),
-                  child: const Icon(Icons.shopping_cart_outlined),
+                  child: const Icon(Icons.store_mall_directory_outlined),
                 ),
                 label: '',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
+                icon: Icon(Icons.deck),
+                label: 'Deciding',
               ),
               const BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined),
-                label: 'Setting',
+                label: 'Setup',
               ),
             ],
             currentIndex: controller.selectedIndex.value,
