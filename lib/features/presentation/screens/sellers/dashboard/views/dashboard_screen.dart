@@ -15,12 +15,14 @@ class DashboardScreen extends GetView<DashboardController> {
         child: SingleChildScrollView(
             padding: const EdgeInsets.all(30),
             child: Column(
-              children: [MainButton(
-                onPressed: () async {
-                  await controller.logoutUser();
-                },
-                text: 'Logout',
-              )],
+              children: [
+                MainButton(
+                  onPressed: () async {
+                    await controller.logoutUser();
+                  },
+                  text: 'Logout',
+                ),
+              ],
             )),
       ),
     );

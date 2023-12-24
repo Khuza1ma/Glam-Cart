@@ -94,9 +94,6 @@ class AuthRepository {
     }
   }
 
-
-
-
 }
 
 class FirebaseAuthResult {

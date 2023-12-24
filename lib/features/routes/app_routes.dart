@@ -31,8 +31,8 @@ abstract class _Paths {
   static const search = '/search';
   static const setting = '/setting';
   static const dashboard = '/dashboard';
-  static const tab = '/setting';
-  static const setup = '/setting';
-  static const store = '/setting';
-  static const product = '/setting';
+  static const tab = '/tab';
+  static const setup = '/setup';
+  static const store = '/store';
+  static const product = '/product';
 }
