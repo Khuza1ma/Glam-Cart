@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '../controllers/tab_controller.dart';
 
-class NavigationBinding extends Bindings {
+class TabBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<TabsController>(

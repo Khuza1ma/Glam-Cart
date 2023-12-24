@@ -3,26 +3,36 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
+
   static const login = '/login';
   static const signup = '/signup';
   static const home = '/home';
   static const navigation = '/navigation';
-  static const dashboard = '/dashboard';
   static const wishlist = '/wishlist';
   static const cart = '/cart';
   static const search = '/search';
   static const setting = '/setting';
+  static const dashboard = '/dashboard';
+  static const tab = '/tab';
+  static const setup = '/setup';
+  static const store = '/store';
+  static const product = '/product';
 }
 
 abstract class _Paths {
   _Paths._();
+
   static const login = '/login';
   static const signup = '/signup';
   static const home = '/home';
   static const navigation = '/navigation';
-  static const dashboard = '/dashboard';
   static const wishlist = '/wishlist';
   static const cart = '/cart';
   static const search = '/search';
   static const setting = '/setting';
+  static const dashboard = '/dashboard';
+  static const tab = '/setting';
+  static const setup = '/setting';
+  static const store = '/setting';
+  static const product = '/setting';
 }

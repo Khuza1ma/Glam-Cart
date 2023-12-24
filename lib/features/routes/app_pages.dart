@@ -1,4 +1,10 @@
 import 'package:get/get.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/product/bindings/product_binding.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/product/views/product_screen.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/setup/views/setup_screen.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/store/bindings/store_binding.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/store/views/store_screen.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/tab/views/tab_screen.dart';
 import 'package:glam_cart/features/presentation/screens/users/cart/bindings/cart_binding.dart';
 import 'package:glam_cart/features/presentation/screens/users/cart/views/cart_screen.dart';
 import 'package:glam_cart/features/presentation/screens/users/navigation/bindings/navigation_binding.dart';
@@ -15,6 +21,7 @@ import '../presentation/screens/auth/signup/bindings/signup_binding.dart';
 import '../presentation/screens/auth/signup/views/signup_screen.dart';
 import '../presentation/screens/sellers/dashboard/bindings/dashboard_binding.dart';
 import '../presentation/screens/sellers/dashboard/views/dashboard_screen.dart';
+import '../presentation/screens/sellers/tab/bindings/tab_binding.dart';
 import '../presentation/screens/users/home/bindings/home_binding.dart';
 import '../presentation/screens/users/home/views/home_screen.dart';
 
@@ -47,11 +54,6 @@ class AppPages {
       binding: NavigationBinding(),
     ),
     GetPage(
-      name: _Paths.dashboard,
-      page: () => const DashboardScreen(),
-      binding: DashboardBinding(),
-    ),
-    GetPage(
       name: _Paths.wishlist,
       page: () => const WishListScreen(),
       binding: WishListBinding(),
@@ -70,6 +72,31 @@ class AppPages {
       name: _Paths.setting,
       page: () => const SettingScreen(),
       binding: SettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.dashboard,
+      page: () => const DashboardScreen(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.tab,
+      page: () => const TabScreen(),
+      binding: TabBinding(),
+    ),
+    GetPage(
+      name: _Paths.setup,
+      page: () => const SetupScreen(),
+      binding: SettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.store,
+      page: () => const StoreScreen(),
+      binding: StoreBinding(),
+    ),
+    GetPage(
+      name: _Paths.product,
+      page: () => const ProductScreen(),
+      binding: ProductBinding(),
     ),
   ];
 }
