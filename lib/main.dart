@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           initialRoute =
               authController.isAdmin.value ? Routes.dashboard : Routes.navigation;
         } else {
-          initialRoute = AppPages.INITIAL;
+          initialRoute = AppPages.initial;
         }
         return GetMaterialApp(
           title: 'Glam Cart',
