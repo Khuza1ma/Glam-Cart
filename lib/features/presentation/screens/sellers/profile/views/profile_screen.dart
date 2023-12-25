@@ -45,13 +45,14 @@ class ProfileScreen extends GetView<ProfileController> {
                 _buildForm(),
                 10.verticalSpace,
                 MainButton(
-                  onPressed: () {
+                  onPressed: () async{
                     if(controller.formKey.currentState?.validate()??false){
-                      Get.snackbar('Sucessful', 'sucesful');
-                      controller.saveSeller();
+                      await controller.saveSeller();
+                    Get.snackbar('Sucessful', 'sucesful');
                     }
                   },
                   text: 'Save',
+                  isLoading: controller.isLoading.value,
                   hasBottomMargin: false,
                   borderRadius: BorderRadius.circular(8),
                 )
