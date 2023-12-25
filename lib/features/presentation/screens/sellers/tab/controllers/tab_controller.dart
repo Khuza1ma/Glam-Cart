@@ -15,28 +15,39 @@ class TabsController extends GetxController {
     const DashboardScreen(),
     const ProductScreen(),
     const StoreScreen(),
-    const ProfileScreen(),
+    const StoreScreen(),
     const ProfileScreen(),
   ];
 
   @override
   void onInit() {
     Get.put(DashboardController());
+    Get.put(ProfileController());
     super.onInit();
   }
 
   void changeIndex(int index) {
     selectedIndex.value = index;
     if (index == 0){
-      Get.put(DashboardController());
+      if (!Get.isRegistered<DashboardController>()) {
+        Get.put(DashboardController());
+      }
     } else if (index == 1) {
-      Get.put(ProductController());
+      if (!Get.isRegistered<ProductController>()) {
+        Get.put(ProductController());
+      }
     } else if (index == 2) {
-      Get.put(StoreController());
+      if (!Get.isRegistered<StoreController>()) {
+        Get.put(StoreController());
+      }
     } else if (index == 3) {
-      Get.put(ProfileController());
+      if (!Get.isRegistered<StoreController>()) {
+        Get.put(StoreController());
+      }
     }else if (index == 4) {
-      Get.put(ProfileController());
+      if (!Get.isRegistered<ProfileController>()) {
+        Get.put(ProfileController());
+      }
     }
   }
 }

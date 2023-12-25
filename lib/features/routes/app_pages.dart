@@ -84,7 +84,7 @@ class AppPages {
       binding: TabBinding(),
     ),
     GetPage(
-      name: _Paths.setup,
+      name: _Paths.profile,
       page: () => const ProfileScreen(),
       binding: ProfileBinding(),
     ),
