@@ -8,4 +8,5 @@ class AppAssets {
   static String google = '$_iconPath/img.png';
   static String apple = '$_iconPath/apple.svg';
   static String facebook = '$_iconPath/facebook.svg';
+  // static String profile = '$_iconPath/profile.svg';
 }
