@@ -48,6 +48,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   onPressed: () {
                     if(controller.formKey.currentState?.validate()??false){
                       Get.snackbar('Sucessful', 'sucesful');
+                      controller.saveSeller();
                     }
                   },
                   text: 'Save',
