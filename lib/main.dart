@@ -21,21 +21,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthController authController = Get.find<AuthController>();
 
+
     return Obx(
       () {
-        String initialRoute;
-        if (authController.isAuthenticated.value) {
-          initialRoute =
-              authController.isAdmin.value ? Routes.tab : Routes.navigation;
+        if (authController.isLoading.value) {
+          return const MaterialApp(
+            home: CircularProgressIndicator(),
+          );
         } else {
-          initialRoute = AppPages.initial;
+          String initialRoute;
+          if (authController.isAuthenticated.value) {
+            initialRoute =
+            authController.isAdmin.value ? Routes.tab : Routes.navigation;
+          } else {
+            initialRoute = AppPages.initial;
+          }
+          return GetMaterialApp(
+            title: 'Glam Cart',
+            initialRoute: initialRoute,
+            getPages: AppPages.routes,
+            debugShowCheckedModeBanner: false,
+          );
         }
-        return GetMaterialApp(
-          title: 'Glam Cart',
-          initialRoute: initialRoute,
-          getPages: AppPages.routes,
-          debugShowCheckedModeBanner: false,
-        );
       },
     );
   }
