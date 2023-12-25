@@ -96,14 +96,21 @@ class Seller {
 
   factory Seller.fromMap(Map<String, dynamic> map) {
     return Seller(
-      email: map['email'] as String ?? '',
-      sellerName: map['sellerName'] as String ?? '',
-      familyName: map['familyName'] as String ?? '',
-      contact: map['contact'] as String ?? '',
-      address: map['address'] as String ?? '',
-      state: map['state'] as String ?? '',
-      city: map['city'] as String ?? '',
-      pincode: map['pincode'] as String ?? '',
+      email: map['email'] as String? ?? '',
+      // Corrected
+      sellerName: map['sellerName'] as String? ?? '',
+      // Corrected
+      familyName: map['familyName'] as String? ?? '',
+      // Corrected
+      contact: map['contact'] as String? ?? '',
+      // Corrected
+      address: map['address'] as String? ?? '',
+      // Corrected
+      state: map['state'] as String? ?? '',
+      // Corrected
+      city: map['city'] as String? ?? '',
+      // Corrected
+      pincode: map['pincode'] as String? ?? '', // Corrected
     );
   }
 

@@ -61,10 +61,10 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: map['uid'] as String,
-      name: map['name'] as String? ?? 'Unkown',
-      email: map['email'] as String,
-      isAdmin: map['isAdmin'] as bool,
+      uid: map['uid'] as String? ?? '', // Corrected
+      name: map['name'] as String? ?? 'Unknown', // Corrected
+      email: map['email'] as String? ?? '', // Corrected
+      isAdmin: map['isAdmin'] as bool? ?? false, // Corrected
     );
   }
 

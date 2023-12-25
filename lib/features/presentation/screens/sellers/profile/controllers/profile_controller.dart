@@ -12,8 +12,6 @@ class ProfileController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late UserModel userModel; // Declare as late
 
-
-
   @override
   void onInit() {
     super.onInit();
@@ -38,7 +36,6 @@ class ProfileController extends GetxController {
         var formData = formKey.currentState?.value;
         print("Form data: $formData"); // Debugging line
 
-        // Ensure formData is not null before proceeding
         if (formData == null) {
           throw Exception("Form data is null");
         }
@@ -58,5 +55,4 @@ class ProfileController extends GetxController {
       Get.snackbar("Error", "Validation failed. Please check your input.");
     }
   }
-
 }

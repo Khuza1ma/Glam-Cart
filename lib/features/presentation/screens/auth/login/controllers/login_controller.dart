@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
-
 import '../../../../../data/models/user_model.dart';
 import '../../../../../domain/repository/auth_repository.dart';
 import '../../../../../routes/app_pages.dart';
