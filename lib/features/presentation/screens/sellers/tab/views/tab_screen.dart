@@ -55,8 +55,8 @@ class TabScreen extends GetView<TabsController> {
                 label: 'Deciding',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(Icons.settings_outlined),
-                label: 'Setup',
+                icon: Icon(Icons.person_2_outlined),
+                label: 'Profile',
               ),
             ],
             currentIndex: controller.selectedIndex.value,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
-import '../controllers/setup_controller.dart';
+import '../controllers/profile_controller.dart';
 
-class SetupScreen extends GetView<SetupController> {
-  const SetupScreen({super.key});
+class ProfileScreen extends GetView<ProfileController> {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
