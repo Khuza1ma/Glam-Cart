@@ -5,7 +5,7 @@ import 'package:glam_cart/features/presentation/screens/sellers/dashboard/views/
 import 'package:glam_cart/features/presentation/screens/sellers/product/controllers/product_controller.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/product/views/product_screen.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/profile/controllers/profile_controller.dart';
-import 'package:glam_cart/features/presentation/screens/sellers/profile/views/edit_profile_screen.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/profile/views/profile_screen.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/store/controllers/store_controller.dart';
 import '../../store/views/store_screen.dart';
 
@@ -16,7 +16,7 @@ class TabsController extends GetxController {
     const ProductScreen(),
     const StoreScreen(),
     const StoreScreen(),
-    const EditProfileScreen(),
+    const ProfileScreen(),
   ];
 
   @override

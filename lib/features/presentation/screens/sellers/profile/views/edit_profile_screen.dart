@@ -140,9 +140,9 @@ class EditProfileScreen extends GetView<ProfileController> {
           },
         ),
         _buildTextField(
-          name: 'Contact',
-          hintText: 'contact',
-          label: 'contact',
+          name: 'contact',
+          hintText: 'Contact',
+          label: 'Contact',
           textInputType: TextInputType.phone,
           validate: (value) {
             if (value == null || value.trim().isEmpty) {

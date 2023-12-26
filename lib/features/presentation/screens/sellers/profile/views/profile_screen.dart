@@ -8,8 +8,8 @@ import '../../../../../../core/constants/app_images.dart';
 import '../../../../widgets/main_button.dart';
 import '../controllers/profile_controller.dart';
 
-class EditProfileScreen extends GetView<ProfileController> {
-  const EditProfileScreen({super.key});
+class ProfileScreen extends GetView<ProfileController> {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +53,8 @@ class EditProfileScreen extends GetView<ProfileController> {
                   ),
                 ),
                 20.verticalSpace,
-                buildTitleValue(
-                  title: 'Email',
-                  value: 'email.com',
-                ),
-                10.verticalSpace,
+                buildDetailsView(),
+                30.verticalSpace,
                 MainButton(
                   onPressed: () {
                     Get.offAndToNamed(Routes.editProfile);
@@ -72,6 +69,53 @@ class EditProfileScreen extends GetView<ProfileController> {
           ),
         ),
       ),
+    );
+  }
+
+  Column buildDetailsView() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildTitleValue(
+          title: 'Email',
+          value: 'email.com',
+        ),
+        20.verticalSpace,
+        buildTitleValue(
+          title: 'Seller Name',
+          value: 'email.com',
+        ),
+        20.verticalSpace,
+        buildTitleValue(
+          title: 'Family Name',
+          value: 'email.com',
+        ),
+        20.verticalSpace,
+        buildTitleValue(
+          title: 'Contact',
+          value: 'email.com',
+        ),
+        20.verticalSpace,
+        buildTitleValue(
+          title: 'Address',
+          value: 'email.com',
+        ),
+        20.verticalSpace,
+        buildTitleValue(
+          title: 'State',
+          value: 'email.com',
+        ),
+        20.verticalSpace,
+        buildTitleValue(
+          title: 'City',
+          value: 'email.com',
+        ),
+        20.verticalSpace,
+        buildTitleValue(
+          title: 'Pincode',
+          value: 'email.com',
+        ),
+      ],
     );
   }
 
