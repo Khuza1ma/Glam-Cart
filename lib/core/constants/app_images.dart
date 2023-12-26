@@ -5,8 +5,8 @@ class AppAssets {
   /// Username icon
   static String username = '$_iconPath/username.png';
   static String password = '$_iconPath/password.png';
-  static String google = '$_iconPath/img.png';
+  static String google = '$_iconPath/google.png';
   static String apple = '$_iconPath/apple.svg';
   static String facebook = '$_iconPath/facebook.svg';
-  // static String profile = '$_iconPath/profile.svg';
+  static String profile = '$_imagePath/profile.png';
 }

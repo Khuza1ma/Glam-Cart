@@ -25,10 +25,39 @@ class ProfileScreen extends GetView<ProfileController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: SvgPicture.asset(
-                    AppAssets.facebook,
-                    height: 100,
-                    width: 100,
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundColor: AppColors.kFFFFFF,
+                        backgroundImage: AssetImage(
+                          AppAssets.profile,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 0,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {},
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.k000000,
+                            ),
+                            child: const Icon(
+                              Icons.edit,
+                              color: AppColors.kFFFFFF,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 25.verticalSpace,
@@ -45,10 +74,14 @@ class ProfileScreen extends GetView<ProfileController> {
                 _buildForm(),
                 10.verticalSpace,
                 MainButton(
-                  onPressed: () async{
-                    if(controller.formKey.currentState?.validate()??false){
+                  onPressed: () async {
+                    if (controller.formKey.currentState?.validate() ?? false) {
                       await controller.saveSeller();
-                    Get.snackbar('Sucessful', 'sucesful');
+                      Get.snackbar(
+                        'Successful',
+                        'successful',
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
                     }
                   },
                   text: 'Save',
@@ -110,11 +143,9 @@ class ProfileScreen extends GetView<ProfileController> {
           validate: (value) {
             if (value == null || value.trim().isEmpty) {
               return 'Please enter contact';
+            } else if (value.length < 10 || value.length > 10) {
+              return 'Please enter a valid contact';
             }
-            else if(value.length<10 || value.length>10)
-              {
-                return 'Please enter a valid contact';
-              }
             return null;
           },
         ),
@@ -160,9 +191,7 @@ class ProfileScreen extends GetView<ProfileController> {
           validate: (value) {
             if (value == null || value.trim().isEmpty) {
               return 'Please enter a pincode';
-            }
-            else if(value.length<6 || value.length>6)
-            {
+            } else if (value.length < 6 || value.length > 6) {
               return 'Please enter a valid pincode';
             }
             return null;
