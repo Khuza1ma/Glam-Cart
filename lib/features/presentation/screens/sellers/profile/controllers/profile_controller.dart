@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -5,12 +7,15 @@ import 'package:get/get.dart';
 import 'package:glam_cart/features/data/models/user_model.dart';
 import '../../../../../data/models/seller_model.dart';
 import '../../../../../domain/repository/seller_repository.dart';
+import 'package:file_picker/file_picker.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoading = false.obs;
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late UserModel userModel; // Declare as late
+  late UserModel userModel;
+  Uint8List? fileBytes;
+  Rx<File?> pickedImageFile = Rx<File?>(null);
 
   @override
   void onInit() {
@@ -28,28 +33,52 @@ class ProfileController extends GetxController {
     }
   }
 
+  Future<void> pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      fileBytes = await file.readAsBytes();
+      pickedImageFile.value = file;
+    } else {
+      // User canceled the picker
+    }
+  }
+
   Future<void> saveSeller() async {
     if (formKey.currentState?.saveAndValidate() ?? false) {
       isLoading.value = true;
 
       try {
-        var formData = formKey.currentState?.value;
-        print("Form data: $formData"); // Debugging line
+        var originalFormData = formKey.currentState?.value;
+        print("Form data: $originalFormData");
 
-        if (formData == null) {
-          throw Exception("Form data is null");
+        if (originalFormData == null || fileBytes == null) {
+          throw Exception("Form data or file is null");
         }
+
+        var formData = Map<String, dynamic>.from(originalFormData);
+        formData['fileBytes'] = fileBytes;
 
         Seller seller = Seller.fromMap(formData);
 
-        await SellerRepository().saveSeller(seller, userModel.uid);
+        if (fileBytes != null) {
+          await SellerRepository()
+              .saveSeller(seller, userModel.uid, fileBytes!);
 
-        isLoading.value = false;
-        Get.snackbar("Success", "Seller information saved successfully");
+          isLoading.value = false;
+          Get.snackbar("Success", "Seller information saved successfully");
+        } else {
+          Get.snackbar(
+            "Failed",
+            "Please upload an image",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
       } catch (e) {
         isLoading.value = false;
         Get.snackbar("Error", "Failed to save seller information: $e");
-        print("Error: $e"); // Debugging line
+        print("Error: $e");
       }
     } else {
       Get.snackbar("Error", "Validation failed. Please check your input.");

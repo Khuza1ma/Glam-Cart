@@ -7,6 +7,7 @@ class Seller {
   String state;
   String city;
   String pincode;
+  String profileImg;
 
 //<editor-fold desc="Data Methods">
   Seller({
@@ -18,6 +19,7 @@ class Seller {
     required this.state,
     required this.city,
     required this.pincode,
+    required this.profileImg,
   });
 
   @override
@@ -32,7 +34,8 @@ class Seller {
           address == other.address &&
           state == other.state &&
           city == other.city &&
-          pincode == other.pincode);
+          pincode == other.pincode &&
+          profileImg == other.profileImg);
 
   @override
   int get hashCode =>
@@ -43,7 +46,8 @@ class Seller {
       address.hashCode ^
       state.hashCode ^
       city.hashCode ^
-      pincode.hashCode;
+      pincode.hashCode ^
+      profileImg.hashCode;
 
   @override
   String toString() {
@@ -56,6 +60,7 @@ class Seller {
         ' state: $state,' +
         ' city: $city,' +
         ' pincode: $pincode,' +
+        ' profileImg: $profileImg,' +
         '}';
   }
 
@@ -68,6 +73,7 @@ class Seller {
     String? state,
     String? city,
     String? pincode,
+    String? profileImg,
   }) {
     return Seller(
       email: email ?? this.email,
@@ -78,6 +84,7 @@ class Seller {
       state: state ?? this.state,
       city: city ?? this.city,
       pincode: pincode ?? this.pincode,
+      profileImg: profileImg ?? this.profileImg,
     );
   }
 
@@ -91,26 +98,21 @@ class Seller {
       'state': this.state,
       'city': this.city,
       'pincode': this.pincode,
+      'profileImg': this.profileImg,
     };
   }
 
   factory Seller.fromMap(Map<String, dynamic> map) {
     return Seller(
       email: map['email'] as String? ?? '',
-      // Corrected
       sellerName: map['sellerName'] as String? ?? '',
-      // Corrected
       familyName: map['familyName'] as String? ?? '',
-      // Corrected
       contact: map['contact'] as String? ?? '',
-      // Corrected
       address: map['address'] as String? ?? '',
-      // Corrected
       state: map['state'] as String? ?? '',
-      // Corrected
       city: map['city'] as String? ?? '',
-      // Corrected
-      pincode: map['pincode'] as String? ?? '', // Corrected
+      pincode: map['pincode'] as String? ?? '',
+      profileImg: map['profileImg'] as String? ?? '',
     );
   }
 

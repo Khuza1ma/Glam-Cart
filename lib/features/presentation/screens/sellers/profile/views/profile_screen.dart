@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
 import 'package:glam_cart/core/constants/app_images.dart';
@@ -27,13 +26,16 @@ class ProfileScreen extends GetView<ProfileController> {
                 Center(
                   child: Stack(
                     children: [
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundColor: AppColors.kFFFFFF,
-                        backgroundImage: AssetImage(
-                          AppAssets.profile,
-                        ),
-                      ),
+                      Obx(() {
+                        return CircleAvatar(
+                          radius: 60,
+                          backgroundColor: AppColors.kFFFFFF,
+                          backgroundImage: controller.pickedImageFile.value !=
+                                  null
+                              ? FileImage(controller.pickedImageFile.value!)
+                              : AssetImage(AppAssets.profile) as ImageProvider,
+                        );
+                      }),
                       Positioned(
                         bottom: 10,
                         right: 0,
@@ -41,7 +43,9 @@ class ProfileScreen extends GetView<ProfileController> {
                           splashColor: Colors.transparent,
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onTap: () {},
+                          onTap: () {
+                            controller.pickFile();
+                          },
                           child: Container(
                             height: 30,
                             width: 30,
