@@ -37,7 +37,7 @@ class SellerRepository {
         }
 
         Map<String, dynamic> sellerData = seller.toMap();
-        sellerData['imageUrl'] = imageUrl;
+        sellerData['profileImg'] = imageUrl;
 
         transaction.set(sellerRef, sellerData, SetOptions(merge: true));
       });
