@@ -45,4 +45,20 @@ class SellerRepository {
       throw Exception('Error saving seller: $e');
     }
   }
+
+  Future<Seller> getSeller(String uid) async {
+    try {
+      DocumentReference sellerRef = _firestore.collection('sellers').doc(uid);
+      DocumentSnapshot snapshot = await sellerRef.get();
+
+      if (!snapshot.exists) {
+        throw Exception('Seller not found');
+      }
+
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      return Seller.fromMap(data);
+    } catch (e) {
+      throw Exception('Error fetching seller: $e');
+    }
+  }
 }

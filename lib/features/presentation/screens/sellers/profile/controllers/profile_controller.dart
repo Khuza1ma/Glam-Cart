@@ -16,9 +16,10 @@ class ProfileController extends GetxController {
   late UserModel userModel;
   Uint8List? fileBytes;
   Rx<File?> pickedImageFile = Rx<File?>(null);
+  Rxn<Seller> sellerData = Rxn<Seller>();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     var currentUser = _auth.currentUser;
     if (currentUser != null) {
@@ -31,6 +32,7 @@ class ProfileController extends GetxController {
     } else {
       userModel = UserModel(uid: '', email: '', name: '', isAdmin: false);
     }
+    await getSeller();
   }
 
   Future<void> pickFile() async {
@@ -82,6 +84,25 @@ class ProfileController extends GetxController {
       }
     } else {
       Get.snackbar("Error", "Validation failed. Please check your input.");
+    }
+  }
+
+  Future<void> getSeller() async {
+    isLoading.value = true;
+
+    try {
+      var currentUser = _auth.currentUser;
+      if (currentUser != null) {
+        Seller seller = await SellerRepository().getSeller(currentUser.uid);
+        sellerData.value = seller;
+      } else {
+        throw Exception("No current user found");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to fetch seller information: $e");
+      print("Error: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 }

@@ -20,52 +20,54 @@ class ProfileScreen extends GetView<ProfileController> {
           padding: const EdgeInsets.all(30),
           child: FormBuilder(
             key: controller.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Stack(
+            child: controller.isLoading()
+                ? const CircularProgressIndicator(color: AppColors.kF83758)
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(
-                        () {
-                          return CircleAvatar(
-                            radius: 60,
-                            backgroundColor: AppColors.kFFFFFF,
-                            backgroundImage: controller.pickedImageFile.value !=
-                                    null
-                                ? FileImage(controller.pickedImageFile.value!)
-                                : AssetImage(AppAssets.profile)
-                                    as ImageProvider,
-                          );
-                        },
+                      Center(
+                        child: Stack(
+                          children: [
+                            Obx(
+                              () {
+                                return CircleAvatar(
+                                  radius: 60,
+                                  backgroundColor: AppColors.kFFFFFF,
+                                  backgroundImage:
+                                      controller.pickedImageFile.value != null
+                                          ? FileImage(
+                                              controller.pickedImageFile.value!)
+                                          : AssetImage(AppAssets.profile)
+                                              as ImageProvider,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
+                      25.verticalSpace,
+                      const Text(
+                        'Personal Details',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      20.verticalSpace,
+                      buildDetailsView(),
+                      30.verticalSpace,
+                      MainButton(
+                        onPressed: () {
+                          Get.offAndToNamed(Routes.editProfile);
+                        },
+                        text: 'Edit Profile',
+                        hasBottomMargin: false,
+                        borderRadius: BorderRadius.circular(8),
+                      )
                     ],
                   ),
-                ),
-                25.verticalSpace,
-                const Text(
-                  'Personal Details',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                20.verticalSpace,
-                buildDetailsView(),
-                30.verticalSpace,
-                MainButton(
-                  onPressed: () {
-                    Get.offAndToNamed(Routes.editProfile);
-                  },
-                  text: 'Edit Profile',
-                  isLoading: controller.isLoading.value,
-                  hasBottomMargin: false,
-                  borderRadius: BorderRadius.circular(8),
-                )
-              ],
-            ),
           ),
         ),
       ),
@@ -78,42 +80,42 @@ class ProfileScreen extends GetView<ProfileController> {
       children: [
         buildTitleValue(
           title: 'Email',
-          value: 'email.com',
+          value: controller.sellerData()?.email ?? '',
         ),
         20.verticalSpace,
         buildTitleValue(
           title: 'Seller Name',
-          value: 'email.com',
+          value: controller.sellerData()?.sellerName ?? '',
         ),
         20.verticalSpace,
         buildTitleValue(
           title: 'Family Name',
-          value: 'email.com',
+          value: controller.sellerData()?.familyName ?? '',
         ),
         20.verticalSpace,
         buildTitleValue(
           title: 'Contact',
-          value: 'email.com',
+          value: controller.sellerData()?.contact ?? '',
         ),
         20.verticalSpace,
         buildTitleValue(
           title: 'Address',
-          value: 'email.com',
+          value: controller.sellerData()?.address ?? '',
         ),
         20.verticalSpace,
         buildTitleValue(
           title: 'State',
-          value: 'email.com',
+          value: controller.sellerData()?.state ?? '',
         ),
         20.verticalSpace,
         buildTitleValue(
           title: 'City',
-          value: 'email.com',
+          value: controller.sellerData()?.city ?? '',
         ),
         20.verticalSpace,
         buildTitleValue(
           title: 'Pincode',
-          value: 'email.com',
+          value: controller.sellerData()?.pincode ?? '',
         ),
       ],
     );
@@ -136,7 +138,7 @@ class ProfileScreen extends GetView<ProfileController> {
             text: value,
             style: const TextStyle(
               fontWeight: FontWeight.w400,
-              color: AppColors.k000000,
+              color: AppColors.k575757,
               fontSize: 16,
             ),
           ),
