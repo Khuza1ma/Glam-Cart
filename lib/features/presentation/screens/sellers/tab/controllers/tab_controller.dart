@@ -56,9 +56,9 @@ class TabsController extends GetxController {
   Widget _getProfileScreen() {
     return Obx(() {
       final profileController = Get.find<ProfileController>();
-      return profileController.sellerData.value != null
-          ? const ProfileScreen()
-          : const EditProfileScreen();
+      return profileController.sellerData()?.address.isEmpty ?? true
+          ? const EditProfileScreen()
+          : const ProfileScreen();
     });
   }
 }
