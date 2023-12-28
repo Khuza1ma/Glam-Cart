@@ -16,31 +16,38 @@ class ProfileScreen extends GetView<ProfileController> {
     return Scaffold(
       backgroundColor: AppColors.kF5F5F5,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(30),
-          child: FormBuilder(
-            key: controller.formKey,
-            child: controller.isLoading()
-                ? const CircularProgressIndicator(color: AppColors.kF83758)
-                : Column(
+          child: Obx(
+        () => controller.isLoading()
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.kF83758,
+                ),
+              )
+            : SingleChildScrollView(
+                padding: const EdgeInsets.all(30),
+                child: FormBuilder(
+                  key: controller.formKey,
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
                         child: Stack(
                           children: [
-                            Obx(
-                              () {
-                                return CircleAvatar(
-                                  radius: 60,
-                                  backgroundColor: AppColors.kFFFFFF,
-                                  backgroundImage:
-                                      controller.pickedImageFile.value != null
-                                          ? FileImage(
-                                              controller.pickedImageFile.value!)
-                                          : AssetImage(AppAssets.profile)
-                                              as ImageProvider,
-                                );
-                              },
+                            CircleAvatar(
+                              radius: 60,
+                              backgroundColor: AppColors.kFFFFFF,
+                              backgroundImage: controller
+                                          .pickedImageFile.value !=
+                                      null
+                                  ? FileImage(
+                                      controller.pickedImageFile.value!,
+                                    )
+                                  : (controller.sellerData()?.profileImg != null
+                                      ? NetworkImage(
+                                          controller.sellerData()!.profileImg,
+                                        )
+                                      : AssetImage(AppAssets.profile)
+                                          as ImageProvider),
                             ),
                           ],
                         ),
@@ -68,9 +75,9 @@ class ProfileScreen extends GetView<ProfileController> {
                       )
                     ],
                   ),
-          ),
-        ),
-      ),
+                ),
+              ),
+      )),
     );
   }
 
