@@ -5,25 +5,27 @@ import 'package:glam_cart/features/presentation/screens/sellers/dashboard/views/
 import 'package:glam_cart/features/presentation/screens/sellers/product/controllers/product_controller.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/product/views/product_screen.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/profile/controllers/profile_controller.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/profile/views/edit_profile_screen.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/profile/views/profile_screen.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/store/controllers/store_controller.dart';
 import '../../store/views/store_screen.dart';
 
 class TabsController extends GetxController {
   RxInt selectedIndex = 0.obs;
-  final List<Widget> screens = [
-    const DashboardScreen(),
-    const ProductScreen(),
-    const StoreScreen(),
-    const StoreScreen(),
-    const ProfileScreen(),
-  ];
+  late final List<Widget> screens;
 
   @override
   void onInit() {
-    Get.put(DashboardController());
-    Get.put(ProfileController());
     super.onInit();
+    Get.lazyPut(() => DashboardController());
+    Get.lazyPut(() => ProfileController());
+    screens = [
+      const DashboardScreen(),
+      const ProductScreen(),
+      const StoreScreen(),
+      const StoreScreen(),
+      _getProfileScreen(),
+    ];
   }
 
   void changeIndex(int index) {
@@ -49,5 +51,14 @@ class TabsController extends GetxController {
         Get.put(ProfileController());
       }
     }
+  }
+
+  Widget _getProfileScreen() {
+    return Obx(() {
+      final profileController = Get.find<ProfileController>();
+      return profileController.sellerData.value != null
+          ? const ProfileScreen()
+          : const EditProfileScreen();
+    });
   }
 }

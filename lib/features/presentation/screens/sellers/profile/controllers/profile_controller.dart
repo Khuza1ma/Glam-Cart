@@ -89,7 +89,6 @@ class ProfileController extends GetxController {
 
   Future<void> getSeller() async {
     isLoading.value = true;
-
     try {
       var currentUser = _auth.currentUser;
       if (currentUser != null) {
@@ -103,6 +102,7 @@ class ProfileController extends GetxController {
       print("Error: $e");
     } finally {
       isLoading.value = false;
+      update();
     }
   }
 }
