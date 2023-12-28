@@ -31,7 +31,7 @@ class TabScreen extends GetView<TabsController> {
               ),
               const BottomNavigationBarItem(
                 icon: Icon(Icons.feedback_outlined),
-                label: 'Product',
+                label: 'Store',
               ),
               BottomNavigationBarItem(
                 icon: AnimatedContainer(

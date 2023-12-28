@@ -21,8 +21,8 @@ class TabsController extends GetxController {
     Get.lazyPut(() => ProfileController());
     screens = [
       const DashboardScreen(),
-      const ProductScreen(),
       const StoreScreen(),
+      const ProductScreen(),
       const StoreScreen(),
       _getProfileScreen(),
     ];
@@ -36,11 +36,11 @@ class TabsController extends GetxController {
       }
     } else if (index == 1) {
       if (!Get.isRegistered<ProductController>()) {
-        Get.put(ProductController());
+        Get.put(StoreController());
       }
     } else if (index == 2) {
       if (!Get.isRegistered<StoreController>()) {
-        Get.put(StoreController());
+        Get.put(ProductController());
       }
     } else if (index == 3) {
       if (!Get.isRegistered<StoreController>()) {
