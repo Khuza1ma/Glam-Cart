@@ -26,16 +26,19 @@ class EditProfileScreen extends GetView<ProfileController> {
                 Center(
                   child: Stack(
                     children: [
-                      Obx(() {
-                        return CircleAvatar(
-                          radius: 60,
-                          backgroundColor: AppColors.kFFFFFF,
-                          backgroundImage: controller.pickedImageFile.value !=
-                                  null
-                              ? FileImage(controller.pickedImageFile.value!)
-                              : AssetImage(AppAssets.profile) as ImageProvider,
-                        );
-                      }),
+                      Obx(
+                        () {
+                          return CircleAvatar(
+                            radius: 60,
+                            backgroundColor: AppColors.kFFFFFF,
+                            backgroundImage: controller.pickedImageFile.value !=
+                                    null
+                                ? FileImage(controller.pickedImageFile.value!)
+                                : AssetImage(AppAssets.profile)
+                                    as ImageProvider,
+                          );
+                        },
+                      ),
                       Positioned(
                         bottom: 10,
                         right: 0,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/features/presentation/widgets/widget_ext.dart';
 import 'package:glam_cart/features/routes/app_pages.dart';
@@ -25,56 +24,52 @@ class ProfileScreen extends GetView<ProfileController> {
               )
             : SingleChildScrollView(
                 padding: const EdgeInsets.all(30),
-                child: FormBuilder(
-                  key: controller.formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Stack(
-                          children: [
-                            CircleAvatar(
-                              radius: 60,
-                              backgroundColor: AppColors.kFFFFFF,
-                              backgroundImage: controller
-                                          .pickedImageFile.value !=
-                                      null
-                                  ? FileImage(
-                                      controller.pickedImageFile.value!,
-                                    )
-                                  : (controller.sellerData()?.profileImg != null
-                                      ? NetworkImage(
-                                          controller.sellerData()!.profileImg,
-                                        )
-                                      : AssetImage(AppAssets.profile)
-                                          as ImageProvider),
-                            ),
-                          ],
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundColor: AppColors.kFFFFFF,
+                            backgroundImage: controller.pickedImageFile.value !=
+                                    null
+                                ? FileImage(
+                                    controller.pickedImageFile.value!,
+                                  )
+                                : (controller.sellerData()?.profileImg != null
+                                    ? NetworkImage(
+                                        controller.sellerData()!.profileImg,
+                                      )
+                                    : AssetImage(AppAssets.profile)
+                                        as ImageProvider),
+                          ),
+                        ],
                       ),
-                      25.verticalSpace,
-                      const Text(
-                        'Personal Details',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                        ),
+                    ),
+                    25.verticalSpace,
+                    const Text(
+                      'Personal Details',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
                       ),
-                      20.verticalSpace,
-                      buildDetailsView(),
-                      30.verticalSpace,
-                      MainButton(
-                        onPressed: () {
-                          Get.offAndToNamed(Routes.editProfile);
-                        },
-                        text: 'Edit Profile',
-                        hasBottomMargin: false,
-                        borderRadius: BorderRadius.circular(8),
-                      )
-                    ],
-                  ),
+                    ),
+                    20.verticalSpace,
+                    buildDetailsView(),
+                    30.verticalSpace,
+                    MainButton(
+                      onPressed: () {
+                        Get.offAndToNamed(Routes.editProfile);
+                      },
+                      text: 'Edit Profile',
+                      hasBottomMargin: false,
+                      borderRadius: BorderRadius.circular(8),
+                    )
+                  ],
                 ),
               ),
       )),

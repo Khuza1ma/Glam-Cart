@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import '../../../../../../core/config/app_colors.dart';
 
@@ -12,6 +13,7 @@ class ProductController extends GetxController {
   List<File> selectedImages = [];
   final Rx<String> selectedValue = 'Man'.obs;
   final RxList<String> items = ['Man', 'Woman', 'Unisex'].obs;
+  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
   @override
   void onInit() {
