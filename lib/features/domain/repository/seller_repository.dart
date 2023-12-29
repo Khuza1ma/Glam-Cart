@@ -12,7 +12,7 @@ class SellerRepository {
       Reference ref = _storage.ref().child('sellerProfiles').child('$uid.png');
 
       UploadTask uploadTask =
-          ref.putData(imageBytes, SettableMetadata(contentType: 'png'));
+          ref.putData(imageBytes, SettableMetadata(contentType: 'image/png'));
       TaskSnapshot snapshot = await uploadTask;
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;

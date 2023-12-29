@@ -86,7 +86,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.editProfile,
-      page: () => const EditProfileScreen(),
+      page: () => EditProfileScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(

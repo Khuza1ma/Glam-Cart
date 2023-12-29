@@ -9,8 +9,8 @@ import 'package:glam_cart/features/presentation/widgets/widget_ext.dart';
 import '../controllers/profile_controller.dart';
 
 class EditProfileScreen extends GetView<ProfileController> {
-  const EditProfileScreen({super.key});
-
+  EditProfileScreen({super.key});
+  ProfileController controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
