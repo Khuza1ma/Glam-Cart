@@ -117,7 +117,7 @@ class MainButton extends StatelessWidget {
             ),
             minimumSize: minimumSize ??
                 Size(
-                  screenSize.width * 0.83,
+                  screenSize.width * 1,
                   56,
                 ),
           ),
