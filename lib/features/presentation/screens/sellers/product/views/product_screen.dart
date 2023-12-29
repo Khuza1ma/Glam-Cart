@@ -136,11 +136,11 @@ class ProductScreen extends GetView<ProductController> {
                                               Icons.keyboard_arrow_down,
                                               color: AppColors.kF83758,
                                             ),
-                                            value:
-                                                controller.selectedValue.value,
+                                            value: controller
+                                                .selectedCategory.value,
                                             onChanged: (newValue) {
-                                              controller.selectedValue.value =
-                                                  newValue!;
+                                              controller.selectedCategory
+                                                  .value = newValue!;
                                             },
                                             items: controller.items
                                                 .map<DropdownMenuItem<String>>(
@@ -164,7 +164,7 @@ class ProductScreen extends GetView<ProductController> {
                       ),
                       floatingActionButton: MainButton(
                         margin: const EdgeInsets.only(left: 35),
-                        onPressed: () {
+                        onPressed: () async {
                           if (controller.formKey.currentState?.validate() ??
                               false) {
                             if (controller.selectedImages.isEmpty) {
@@ -176,16 +176,13 @@ class ProductScreen extends GetView<ProductController> {
                                 colorText: AppColors.kFFFFFF,
                               );
                             } else {
-                              Get.snackbar(
-                                'Success',
-                                'message',
-                                snackPosition: SnackPosition.BOTTOM,
-                              );
+                              await controller.saveProduct();
                             }
                           }
                         },
                         text: 'Add Product',
                         hasBottomMargin: false,
+                        isLoading: controller.isLoading.value,
                       ),
                     );
                   },
