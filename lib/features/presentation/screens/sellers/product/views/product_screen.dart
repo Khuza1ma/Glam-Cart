@@ -177,6 +177,7 @@ class ProductScreen extends GetView<ProductController> {
                               );
                             } else {
                               await controller.saveProduct();
+                              Get.back();
                             }
                           }
                         },
