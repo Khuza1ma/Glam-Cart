@@ -8,12 +8,15 @@ class ProductRepository {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<List<String>> _uploadImages(
-      List<Uint8List> imageBytesList, String uid) async {
+    List<Uint8List> imageBytesList,
+    String uid,
+    String productName,
+  ) async {
     List<String> downloadUrls = [];
     try {
       for (int i = 0; i < imageBytesList.length; i++) {
-        Reference ref =
-            _storage.ref().child('products').child(uid).child('image$i.png');
+        Reference ref = _storage.ref().child('products').child(uid).child(
+            '$productName$i${DateTime.now().millisecondsSinceEpoch}.png');
         UploadTask uploadTask = ref.putData(
             imageBytesList[i], SettableMetadata(contentType: 'image/png'));
         TaskSnapshot snapshot = await uploadTask;
@@ -37,6 +40,7 @@ class ProductRepository {
       List<String> imageUrls = await _uploadImages(
         imageBytesList,
         sellerId,
+        product.productName,
       );
       product.productImages = imageUrls;
       await productRef.set(product.toMap());
