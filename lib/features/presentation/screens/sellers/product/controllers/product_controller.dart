@@ -10,14 +10,18 @@ import '../../../../../../core/config/app_colors.dart';
 class ProductController extends GetxController {
   RxBool isLoading = false.obs;
   final int minImages = 3;
-  List<Widget> imageContainers = [];
+  RxList<Widget> imageContainers = <Widget>[].obs;
   List<File> selectedImages = [];
 
   @override
   void onInit() {
     super.onInit();
-    imageContainers =
-        List.generate(minImages, (index) => buildImageUploadContainer(index));
+    imageContainers(
+      List.generate(
+        minImages,
+        (index) => buildImageUploadContainer(index),
+      ),
+    );
   }
 
   Widget buildImageUploadContainer(int index) {
@@ -41,19 +45,27 @@ class ProductController extends GetxController {
   }
 
   void updateImageContainers() {
-    imageContainers = List.generate(minImages, (index) {
-      return index < selectedImages.length
-          ? buildSelectedImageContainer(selectedImages[index])
-          : buildImageUploadContainer(index);
-    });
-    update(); // If using GetX, call update to refresh the UI
+    imageContainers(
+      List.generate(
+        minImages,
+        (index) {
+          return index < selectedImages.length
+              ? buildSelectedImageContainer(selectedImages[index])
+              : buildImageUploadContainer(index);
+        },
+      ),
+    );
+    update();
   }
 
   Widget buildSelectedImageContainer(File image) {
     return SizedBox(
       height: 150,
       width: 150,
-      child: Image.file(image, fit: BoxFit.cover),
+      child: Image.file(
+        image,
+        fit: BoxFit.cover,
+      ),
     );
   }
 
