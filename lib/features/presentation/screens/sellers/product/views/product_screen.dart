@@ -28,7 +28,6 @@ class ProductScreen extends GetView<ProductController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-            isDismissible: false,
             context: context,
             useSafeArea: true,
             isScrollControlled: true,
