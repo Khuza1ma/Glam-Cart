@@ -40,13 +40,20 @@ class ProductRepository {
           .doc(sellerId)
           .collection('products')
           .doc();
+
+      String productId = productRef.id;
+
       List<String> imageUrls = await _uploadImages(
         imageBytesList,
         sellerId,
         product.productName,
       );
       product.productImages = imageUrls;
-      await productRef.set(product.toMap());
+
+      Map<String, dynamic> productData = product.toMap();
+      productData['productId'] = productId;
+
+      await productRef.set(productData);
     } catch (e) {
       throw Exception('Error saving product: $e');
     }

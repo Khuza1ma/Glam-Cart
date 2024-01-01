@@ -174,6 +174,7 @@ class ProductController extends GetxController {
         }
         var currentUser = _auth.currentUser;
         Product product = Product(
+          productId: '',
           productName: productName,
           description: description,
           productImages: [],

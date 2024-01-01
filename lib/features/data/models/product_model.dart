@@ -4,6 +4,7 @@ class Product {
   List<String> productImages;
   String price;
   String category;
+  String productId;
 
 //<editor-fold desc="Data Methods">
   Product({
@@ -12,6 +13,7 @@ class Product {
     required this.productImages,
     required this.price,
     required this.category,
+    required this.productId,
   });
 
   @override
@@ -23,7 +25,8 @@ class Product {
           description == other.description &&
           productImages == other.productImages &&
           price == other.price &&
-          category == other.category);
+          category == other.category &&
+          productId == other.productId);
 
   @override
   int get hashCode =>
@@ -31,7 +34,8 @@ class Product {
       description.hashCode ^
       productImages.hashCode ^
       price.hashCode ^
-      category.hashCode;
+      category.hashCode ^
+      productId.hashCode;
 
   @override
   String toString() {
@@ -41,6 +45,7 @@ class Product {
         ' productImages: $productImages,' +
         ' price: $price,' +
         ' category: $category,' +
+        ' productId: $productId,' +
         '}';
   }
 
@@ -50,6 +55,7 @@ class Product {
     List<String>? productImages,
     String? price,
     String? category,
+    String? productId,
   }) {
     return Product(
       productName: productName ?? this.productName,
@@ -57,6 +63,7 @@ class Product {
       productImages: productImages ?? this.productImages,
       price: price ?? this.price,
       category: category ?? this.category,
+      productId: productId ?? this.productId,
     );
   }
 
@@ -67,6 +74,7 @@ class Product {
       'productImages': this.productImages,
       'price': this.price,
       'category': this.category,
+      'productId': this.productId,
     };
   }
 
@@ -79,6 +87,7 @@ class Product {
           : [],
       price: map['price'] as String? ?? '',
       category: map['category'] as String? ?? '',
+      productId: map['productId'] as String? ?? '',
     );
   }
 //</editor-fold>
