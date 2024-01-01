@@ -13,42 +13,86 @@ class ProductScreen extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Products',
+          style: TextStyle(
+            color: AppColors.kFFFFFF,
+            fontSize: 24,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        backgroundColor: AppColors.kF83758,
+        centerTitle: true,
+      ),
       backgroundColor: AppColors.kF5F5F5,
       body: SafeArea(
-          child: controller.isLoading()
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.kF83758,
-                  ),
-                )
-              : Obx(() => SingleChildScrollView(
-                    padding: const EdgeInsets.all(30),
-                    child: Column(
-                      children: controller.products.isNotEmpty
-                          ? controller.products
-                              .map(
-                                (product) => Card(
-                                  child: ListTile(
-                                    leading: Container(
-                                      height: 50,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Image.network(
-                                          product.productImages.isNotEmpty
-                                              ? product.productImages.first
-                                              : 'default_image_url_here'),
-                                    ),
-                                    title: Text(product.productName),
-                                    subtitle: Text(product.description),
-                                  ),
+        child: controller.isLoading()
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.kF83758,
+                ),
+              )
+            : Obx(
+                () => controller.products.isNotEmpty
+                    ? ListView.separated(
+                        padding: const EdgeInsets.all(30),
+                        itemCount: controller.products.length,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(height: 10),
+                        itemBuilder: (BuildContext context, int index) {
+                          final product = controller.products[index];
+                          return Card(
+                            child: ListTile(
+                              leading: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                              )
-                              .toList()
-                          : [Center(child: Text('No products available'))],
-                    ),
-                  ))),
+                                child: Image.network(
+                                  product.productImages.isNotEmpty
+                                      ? product.productImages.first
+                                      : '',
+                                ),
+                              ),
+                              title: Text(
+                                product.productName,
+                                style: const TextStyle(
+                                  color: AppColors.k000000,
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              subtitle: Text(
+                                product.description,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.w400,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: Text(
+                          'No products available',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+              ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
