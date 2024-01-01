@@ -76,6 +76,22 @@ class ProductScreen extends GetView<ProductController> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
+                              trailing: Container(
+                                width: 55,
+                                color: Colors.green,
+                                padding: const EdgeInsets.all(8),
+                                child: Center(
+                                  child: Text(
+                                    '\₹${product.price}',
+                                    style: const TextStyle(
+                                      color: AppColors.kFFFFFF,
+                                      fontSize: 10,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           );
                         },
