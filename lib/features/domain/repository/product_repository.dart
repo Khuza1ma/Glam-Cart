@@ -30,7 +30,10 @@ class ProductRepository {
   }
 
   Future<void> saveProduct(
-      Product product, String sellerId, List<Uint8List> imageBytesList) async {
+    Product product,
+    String sellerId,
+    List<Uint8List> imageBytesList,
+  ) async {
     try {
       DocumentReference productRef = _firestore
           .collection('sellers')
@@ -46,6 +49,26 @@ class ProductRepository {
       await productRef.set(product.toMap());
     } catch (e) {
       throw Exception('Error saving product: $e');
+    }
+  }
+
+  Future<List<Product>> getProducts(String sellerId) async {
+    List<Product> products = [];
+
+    try {
+      QuerySnapshot productSnapshot = await _firestore
+          .collection('sellers')
+          .doc(sellerId)
+          .collection('products')
+          .get();
+
+      for (var doc in productSnapshot.docs) {
+        products.add(Product.fromMap(doc.data() as Map<String, dynamic>));
+      }
+
+      return products;
+    } catch (e) {
+      throw Exception('Error fetching products: $e');
     }
   }
 }

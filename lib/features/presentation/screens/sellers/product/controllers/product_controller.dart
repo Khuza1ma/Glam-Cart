@@ -44,6 +44,35 @@ class ProductController extends GetxController {
     }
   }
 
+  RxList<Product> products = <Product>[].obs;
+
+  @override
+  void onReady() {
+    super.onReady();
+    loadProducts();
+  }
+
+  Future<void> loadProducts() async {
+    isLoading(true);
+    try {
+      var currentUser = _auth.currentUser;
+      if (currentUser != null) {
+        List<Product> fetchedProducts =
+            await ProductRepository().getProducts(currentUser.uid);
+        if (fetchedProducts.isNotEmpty) {
+          products.assignAll(fetchedProducts);
+        } else {
+          Get.snackbar("Info", "No products found for this seller.");
+        }
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to load products: ${e.toString()}");
+      print(e);
+    } finally {
+      isLoading(false);
+    }
+  }
+
   Widget buildImageUploadContainer(int index) {
     return index == 0 ? buildInitialUploadContainer() : buildEmptyContainer();
   }

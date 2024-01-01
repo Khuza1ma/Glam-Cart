@@ -19,6 +19,7 @@ class TabsController extends GetxController {
     super.onInit();
     Get.lazyPut(() => DashboardController());
     Get.lazyPut(() => ProfileController());
+    Get.lazyPut(() => ProductController());
     screens = [
       const DashboardScreen(),
       const StoreScreen(),
@@ -54,11 +55,13 @@ class TabsController extends GetxController {
   }
 
   Widget _getProfileScreen() {
-    return Obx(() {
-      final profileController = Get.find<ProfileController>();
-      return profileController.sellerData()?.address.isEmpty ?? true
-          ? EditProfileScreen()
-          : const ProfileScreen();
-    });
+    return Obx(
+      () {
+        final profileController = Get.find<ProfileController>();
+        return profileController.sellerData()?.address.isEmpty ?? true
+            ? EditProfileScreen()
+            : const ProfileScreen();
+      },
+    );
   }
 }

@@ -14,18 +14,41 @@ class ProductScreen extends GetView<ProductController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kF5F5F5,
-      body: const SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(30),
-          child: Column(
-            children: [
-              Center(
-                child: Text('Product'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: SafeArea(
+          child: controller.isLoading()
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.kF83758,
+                  ),
+                )
+              : Obx(() => SingleChildScrollView(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: controller.products.isNotEmpty
+                          ? controller.products
+                              .map(
+                                (product) => Card(
+                                  child: ListTile(
+                                    leading: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Image.network(
+                                          product.productImages.isNotEmpty
+                                              ? product.productImages.first
+                                              : 'default_image_url_here'),
+                                    ),
+                                    title: Text(product.productName),
+                                    subtitle: Text(product.description),
+                                  ),
+                                ),
+                              )
+                              .toList()
+                          : [Center(child: Text('No products available'))],
+                    ),
+                  ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
