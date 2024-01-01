@@ -69,7 +69,7 @@ class ProductScreen extends GetView<ProductController> {
                               subtitle: Text(
                                 product.description,
                                 style: const TextStyle(
-                                  color: Colors.black,
+                                  color: AppColors.kA8A8A9,
                                   fontSize: 14,
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w400,

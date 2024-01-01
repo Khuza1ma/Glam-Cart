@@ -25,6 +25,7 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    loadProducts();
     imageContainers(
       List.generate(
         minImages,
@@ -45,12 +46,6 @@ class ProductController extends GetxController {
   }
 
   RxList<Product> products = <Product>[].obs;
-
-  @override
-  void onReady() {
-    super.onReady();
-    loadProducts();
-  }
 
   Future<void> loadProducts() async {
     isLoading(true);
@@ -188,7 +183,7 @@ class ProductController extends GetxController {
 
         await ProductRepository()
             .saveProduct(product, currentUser!.uid, imageBytesList);
-
+        loadProducts();
         Get.snackbar("Success", "Product saved successfully");
       } catch (e) {
         Get.snackbar("Error", "Failed to save product: ${e.toString()}");
