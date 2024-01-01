@@ -41,7 +41,12 @@ class ProductController extends GetxController {
         isAdmin: false,
       );
     } else {
-      userModel = UserModel(uid: '', email: '', name: '', isAdmin: false);
+      userModel = UserModel(
+        uid: '',
+        email: '',
+        name: '',
+        isAdmin: false,
+      );
     }
   }
 
@@ -136,7 +141,7 @@ class ProductController extends GetxController {
               style: TextStyle(
                 color: AppColors.k000000.withOpacity(0.30),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -206,13 +211,64 @@ class ProductController extends GetxController {
         await ProductRepository().deleteProduct(currentUser.uid, productId);
         products.removeWhere((product) => product.productId == productId);
         Get.back();
-        Get.snackbar("Success", "Product deleted successfully");
+        Get.snackbar(
+          "Success",
+          "Product deleted successfully",
+          snackPosition: SnackPosition.BOTTOM,
+        );
       }
     } catch (e) {
       Get.snackbar("Error", "Failed to delete product: ${e.toString()}");
     } finally {
       loadProducts();
       isLoading(false);
+    }
+  }
+
+  Future<void> updateProduct(String productId) async {
+    if (formKey.currentState?.saveAndValidate() ?? false) {
+      isLoading(true);
+      try {
+        final formData = formKey.currentState?.value;
+        String productName = formData!['productName'];
+        String description = formData['description'];
+        String price = formData['price'];
+
+        // Prepare the list of new images to be uploaded
+        List<Uint8List> newImageBytesList = [];
+        for (File image in selectedImages) {
+          Uint8List imageBytes = await image.readAsBytes();
+          newImageBytesList.add(imageBytes);
+        }
+
+        // Create an updated product object
+        Product updatedProduct = Product(
+          productId: productId,
+          productName: productName,
+          description: description,
+          productImages: [],
+          price: price,
+          category: selectedCategory.value,
+        );
+
+        var currentUser = _auth.currentUser;
+        await ProductRepository().updateProduct(
+          updatedProduct,
+          currentUser!.uid,
+          productId,
+          newImageBytesList,
+        );
+        loadProducts();
+        Get.snackbar(
+          "Success",
+          "Product updated successfully",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      } catch (e) {
+        Get.snackbar("Error", "Failed to update product: ${e.toString()}");
+      } finally {
+        isLoading(false);
+      }
     }
   }
 }

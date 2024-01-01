@@ -97,4 +97,37 @@ class ProductRepository {
       throw Exception('Error deleting product: $e');
     }
   }
+
+  Future<void> updateProduct(
+    Product updatedProduct,
+    String sellerId,
+    String productId,
+    List<Uint8List>? newImageBytesList,
+  ) async {
+    try {
+      DocumentReference productRef = _firestore
+          .collection('sellers')
+          .doc(sellerId)
+          .collection('products')
+          .doc(productId);
+
+      // If there are new images, upload them and update the product images list
+      if (newImageBytesList != null && newImageBytesList.isNotEmpty) {
+        List<String> newImageUrls = await _uploadImages(
+          newImageBytesList,
+          sellerId,
+          updatedProduct.productName,
+        );
+        updatedProduct.productImages.addAll(newImageUrls);
+      }
+
+      // Convert the updated product to a map
+      Map<String, dynamic> updatedProductData = updatedProduct.toMap();
+
+      // Update the product document
+      await productRef.update(updatedProductData);
+    } catch (e) {
+      throw Exception('Error updating product: $e');
+    }
+  }
 }
