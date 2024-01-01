@@ -7,7 +7,10 @@ class SellerRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  Future<String> _uploadImage(Uint8List imageBytes, String uid) async {
+  Future<String> _uploadImage(
+    Uint8List imageBytes,
+    String uid,
+  ) async {
     try {
       Reference ref = _storage.ref().child('sellerProfiles').child('$uid.png');
 
@@ -22,7 +25,10 @@ class SellerRepository {
   }
 
   Future<void> saveSeller(
-      Seller seller, String uid, Uint8List imageBytes) async {
+    Seller seller,
+    String uid,
+    Uint8List imageBytes,
+  ) async {
     try {
       String imageUrl = await _uploadImage(imageBytes, uid);
 

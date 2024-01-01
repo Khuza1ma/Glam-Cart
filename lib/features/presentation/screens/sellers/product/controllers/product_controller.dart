@@ -184,7 +184,11 @@ class ProductController extends GetxController {
         await ProductRepository()
             .saveProduct(product, currentUser!.uid, imageBytesList);
         loadProducts();
-        Get.snackbar("Success", "Product saved successfully");
+        Get.snackbar(
+          "Success",
+          "Product saved successfully",
+          snackPosition: SnackPosition.BOTTOM,
+        );
       } catch (e) {
         Get.snackbar("Error", "Failed to save product: ${e.toString()}");
       } finally {

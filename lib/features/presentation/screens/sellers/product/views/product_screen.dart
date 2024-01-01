@@ -82,7 +82,7 @@ class ProductScreen extends GetView<ProductController> {
                                 padding: const EdgeInsets.all(5),
                                 child: Center(
                                   child: Text(
-                                    '\₹${product.price}',
+                                    '₹${product.price}',
                                     style: const TextStyle(
                                       color: AppColors.kFFFFFF,
                                       fontSize: 10,
