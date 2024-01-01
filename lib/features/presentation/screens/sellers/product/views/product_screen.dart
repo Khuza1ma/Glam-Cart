@@ -79,7 +79,7 @@ class ProductScreen extends GetView<ProductController> {
                               trailing: Container(
                                 width: 55,
                                 color: Colors.green,
-                                padding: const EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(5),
                                 child: Center(
                                   child: Text(
                                     '\₹${product.price}',
