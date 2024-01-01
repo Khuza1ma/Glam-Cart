@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:glam_cart/core/config/app_colors.dart';
 import 'package:glam_cart/features/presentation/widgets/app_textfield.dart';
 import 'package:glam_cart/features/presentation/widgets/main_button.dart';
 import 'package:glam_cart/features/presentation/widgets/widget_ext.dart';
+import 'package:glam_cart/features/routes/app_pages.dart';
 import '../controllers/product_controller.dart';
 
 class ProductScreen extends GetView<ProductController> {
@@ -27,87 +29,93 @@ class ProductScreen extends GetView<ProductController> {
         centerTitle: true,
       ),
       backgroundColor: AppColors.kF5F5F5,
-      body: SafeArea(
-        child: controller.isLoading()
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.kF83758,
-                ),
-              )
-            : Obx(
-                () => controller.products.isNotEmpty
-                    ? ListView.separated(
-                        padding: const EdgeInsets.all(30),
-                        itemCount: controller.products.length,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(height: 10),
-                        itemBuilder: (BuildContext context, int index) {
-                          final product = controller.products[index];
-                          return Card(
-                            child: ListTile(
-                              leading: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Image.network(
-                                  product.productImages.isNotEmpty
-                                      ? product.productImages.first
-                                      : '',
-                                ),
+      body: Obx(
+        () => SafeArea(
+          child: controller.isLoading()
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.kF83758,
+                  ),
+                )
+              : controller.products.isNotEmpty
+                  ? ListView.separated(
+                      padding: const EdgeInsets.all(30),
+                      itemCount: controller.products.length,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(height: 10),
+                      itemBuilder: (BuildContext context, int index) {
+                        final product = controller.products[index];
+                        return Card(
+                          child: ListTile(
+                            onTap: () {
+                              Get.toNamed(
+                                Routes.productDetail,
+                                arguments: product,
+                              );
+                            },
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              title: Text(
-                                product.productName,
-                                style: const TextStyle(
-                                  color: AppColors.k000000,
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              child: CachedNetworkImage(
+                                imageUrl: product.productImages.isNotEmpty
+                                    ? product.productImages.first
+                                    : '',
                               ),
-                              subtitle: Text(
-                                product.description,
-                                style: const TextStyle(
-                                  color: AppColors.kA8A8A9,
-                                  fontSize: 14,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w400,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                            ),
+                            title: Text(
+                              product.productName,
+                              style: const TextStyle(
+                                color: AppColors.k000000,
+                                fontSize: 16,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
                               ),
-                              trailing: Container(
-                                width: 55,
-                                color: Colors.green,
-                                padding: const EdgeInsets.all(5),
-                                child: Center(
-                                  child: Text(
-                                    '₹${product.price}',
-                                    style: const TextStyle(
-                                      color: AppColors.kFFFFFF,
-                                      fontSize: 10,
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                            ),
+                            subtitle: Text(
+                              product.description,
+                              style: const TextStyle(
+                                color: AppColors.kA8A8A9,
+                                fontSize: 14,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w400,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            trailing: Container(
+                              width: 55,
+                              color: Colors.green,
+                              padding: const EdgeInsets.all(5),
+                              child: Center(
+                                child: Text(
+                                  '₹${product.price}',
+                                  style: const TextStyle(
+                                    color: AppColors.kFFFFFF,
+                                    fontSize: 10,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      )
-                    : const Center(
-                        child: Text(
-                          'No products available',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w400,
                           ),
+                        );
+                      },
+                    )
+                  : const Center(
+                      child: Text(
+                        'No products available',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-              ),
+                    ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

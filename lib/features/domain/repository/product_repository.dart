@@ -78,4 +78,23 @@ class ProductRepository {
       throw Exception('Error fetching products: $e');
     }
   }
+
+  Future<void> deleteProduct(String sellerId, String productId) async {
+    try {
+      DocumentReference productRef = _firestore
+          .collection('sellers')
+          .doc(sellerId)
+          .collection('products')
+          .doc(productId);
+
+      await productRef.delete();
+      ListResult result =
+          await _storage.ref('products/$sellerId/$productId').listAll();
+      for (var ref in result.items) {
+        await ref.delete();
+      }
+    } catch (e) {
+      throw Exception('Error deleting product: $e');
+    }
+  }
 }

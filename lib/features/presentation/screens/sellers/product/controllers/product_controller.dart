@@ -197,4 +197,22 @@ class ProductController extends GetxController {
       }
     }
   }
+
+  Future<void> deleteProduct(String productId) async {
+    isLoading(true);
+    try {
+      var currentUser = _auth.currentUser;
+      if (currentUser != null) {
+        await ProductRepository().deleteProduct(currentUser.uid, productId);
+        products.removeWhere((product) => product.productId == productId);
+        Get.back();
+        Get.snackbar("Success", "Product deleted successfully");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Failed to delete product: ${e.toString()}");
+    } finally {
+      loadProducts();
+      isLoading(false);
+    }
+  }
 }

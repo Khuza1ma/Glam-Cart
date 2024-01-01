@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:glam_cart/features/presentation/screens/sellers/product/controllers/product_detail_screen.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/profile/bindings/profile_binding.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/profile/views/edit_profile_screen.dart';
 import 'package:glam_cart/features/presentation/screens/sellers/profile/views/profile_screen.dart';
@@ -86,7 +87,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.editProfile,
-      page: () => EditProfileScreen(),
+      page: () => const EditProfileScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -102,6 +103,11 @@ class AppPages {
     GetPage(
       name: _Paths.product,
       page: () => const ProductScreen(),
+      binding: ProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.productDetail,
+      page: () => const ProductDetailScreen(),
       binding: ProductBinding(),
     ),
   ];
