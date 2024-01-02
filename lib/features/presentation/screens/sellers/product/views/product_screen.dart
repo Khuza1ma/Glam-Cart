@@ -26,6 +26,8 @@ class ProductScreen extends GetView<ProductController> {
           ),
         ),
         backgroundColor: AppColors.kF83758,
+        surfaceTintColor: AppColors.kF83758,
+        shadowColor: AppColors.kF83758,
         centerTitle: true,
       ),
       backgroundColor: AppColors.kF5F5F5,
@@ -53,18 +55,17 @@ class ProductScreen extends GetView<ProductController> {
                                 arguments: product,
                               );
                             },
-                            leading: Container(
-                              height: 50,
+                            leading: SizedBox(
                               width: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Hero(
-                                tag: product.productId,
-                                child: CachedNetworkImage(
-                                  imageUrl: product.productImages.isNotEmpty
-                                      ? product.productImages.first
-                                      : '',
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Hero(
+                                  tag: product.productId,
+                                  child: CachedNetworkImage(
+                                    imageUrl: product.productImages.isNotEmpty
+                                        ? product.productImages.first
+                                        : '',
+                                  ),
                                 ),
                               ),
                             ),

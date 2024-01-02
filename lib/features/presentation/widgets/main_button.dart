@@ -20,12 +20,13 @@ class MainButton extends StatelessWidget {
     this.margin,
     this.alignment,
     this.isLoading = false,
+    this.fontSize = 20,
     this.isIconAtStart = false,
   }) {
     _child = Text(
       text,
       style: TextStyle(
-        fontSize: 20,
+        fontSize: fontSize,
         fontFamily: 'Montserrat',
         fontWeight: FontWeight.w600,
         color: fontColor,
@@ -50,6 +51,7 @@ class MainButton extends StatelessWidget {
     this.margin,
     this.alignment,
     this.isIconAtStart = false,
+    this.fontSize = 20,
     double horizontalSpace = 12,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center,
     super.key,
@@ -67,7 +69,7 @@ class MainButton extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: fontSize,
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w600,
               color: fontColor,
@@ -95,6 +97,7 @@ class MainButton extends StatelessWidget {
   final AlignmentGeometry? alignment;
   final bool isDisable;
   final bool isLoading;
+  final double fontSize;
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
