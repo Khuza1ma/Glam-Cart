@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,6 +19,7 @@ class ProductController extends GetxController {
   List<File> selectedImages = [];
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late UserModel userModel;
+  RxList<Product> products = <Product>[].obs;
   final Rx<String> selectedCategory = 'Men'.obs;
   final RxList<String> items = ['Men', 'Women', 'Unisex'].obs;
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
@@ -50,7 +52,34 @@ class ProductController extends GetxController {
     }
   }
 
-  RxList<Product> products = <Product>[].obs;
+  @override
+  void dispose() {
+    clearSelectedImages();
+    super.dispose();
+  }
+
+  void initializeImageContainers(List<String> imageUrls) {
+    imageContainers.assignAll(
+      imageUrls.map((url) => buildExistingImageContainer(url)).toList(),
+    );
+  }
+
+  Widget buildExistingImageContainer(String imageUrl) {
+    return SizedBox(
+      height: 150,
+      width: 150,
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
+    );
+  }
+
+  void clearSelectedImages() {
+    selectedImages.clear();
+    updateImageContainers();
+  }
 
   Future<void> loadProducts() async {
     isLoading(true);
@@ -189,6 +218,7 @@ class ProductController extends GetxController {
 
         await ProductRepository()
             .saveProduct(product, currentUser!.uid, imageBytesList);
+        clearSelectedImages();
         loadProducts();
         Get.snackbar(
           "Success",
@@ -210,7 +240,7 @@ class ProductController extends GetxController {
       if (currentUser != null) {
         await ProductRepository().deleteProduct(currentUser.uid, productId);
         products.removeWhere((product) => product.productId == productId);
-        Get.back();
+        Get.close(2);
         Get.snackbar(
           "Success",
           "Product deleted successfully",
@@ -258,7 +288,9 @@ class ProductController extends GetxController {
           productId,
           newImageBytesList,
         );
+        clearSelectedImages();
         loadProducts();
+        Get.back();
         Get.snackbar(
           "Success",
           "Product updated successfully",

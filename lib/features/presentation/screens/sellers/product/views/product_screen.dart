@@ -119,6 +119,7 @@ class ProductScreen extends GetView<ProductController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          controller.clearSelectedImages();
           buildShowModalBottomSheet(context);
         },
         backgroundColor: AppColors.kF83758,

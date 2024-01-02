@@ -14,9 +14,21 @@ class ProductDetailScreen extends GetView<ProductController> {
 
   @override
   Widget build(BuildContext context) {
-    final pageController =
-        PageController(viewportFraction: 1.0, keepPage: true);
+    final pageController = PageController(
+      viewportFraction: 1.0,
+      keepPage: true,
+    );
     final product = Get.arguments;
+
+    // Schedule the container initialization after the current build
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        if (product.productImages.isNotEmpty) {
+          controller.initializeImageContainers(product.productImages);
+        }
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -57,6 +69,8 @@ class ProductDetailScreen extends GetView<ProductController> {
                               imageUrl: product.productImages[index],
                               fit: BoxFit.fill,
                               width: double.infinity,
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
                             ),
                           ),
                         ),
@@ -119,7 +133,7 @@ class ProductDetailScreen extends GetView<ProductController> {
                               ),
                             ),
                             const TextSpan(
-                              text: ' ...',
+                              text: '...',
                               style: TextStyle(
                                 color: Color(0xFF828282),
                                 fontSize: 12,
@@ -150,7 +164,57 @@ class ProductDetailScreen extends GetView<ProductController> {
             child: MainButton(
               margin: const EdgeInsets.only(left: 35),
               onPressed: () {
-                controller.deleteProduct(product.productId);
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Center(
+                      child: Text(
+                        'Delete Confirmation',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    content: const Text(
+                      'Are you sure tha you want \nto delete the product?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    actions: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: MainButton(
+                              onPressed: () {
+                                controller.deleteProduct(product.productId);
+                              },
+                              text: 'Yes',
+                              minimumSize: const Size.fromHeight(50),
+                            ),
+                          ),
+                          10.horizontalSpace,
+                          Expanded(
+                            child: MainButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              text: 'No',
+                              minimumSize: const Size.fromHeight(50),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
               },
               buttonColor: AppColors.kFFFFFF,
               fontColor: AppColors.k000000,
@@ -279,9 +343,13 @@ class ProductDetailScreen extends GetView<ProductController> {
                                         Icons.keyboard_arrow_down,
                                         color: AppColors.kF83758,
                                       ),
-                                      value: product.category,
+                                      value: controller.selectedCategory.value,
                                       onChanged: (newValue) {
-                                        product.category = newValue!;
+                                        if (newValue != null) {
+                                          controller.selectedCategory.value =
+                                              newValue;
+                                          controller.update();
+                                        }
                                       },
                                       items: controller.items
                                           .map<DropdownMenuItem<String>>(

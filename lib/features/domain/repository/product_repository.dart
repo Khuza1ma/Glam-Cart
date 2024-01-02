@@ -86,13 +86,21 @@ class ProductRepository {
           .doc(sellerId)
           .collection('products')
           .doc(productId);
+      DocumentSnapshot snapshot = await productRef.get();
 
-      await productRef.delete();
-      ListResult result =
-          await _storage.ref('products/$sellerId/$productId').listAll();
-      for (var ref in result.items) {
+      if (!snapshot.exists) {
+        throw Exception("Product not found");
+      }
+
+      Product product =
+          Product.fromMap(snapshot.data() as Map<String, dynamic>);
+
+      // Delete images from Firebase Storage
+      for (String imageUrl in product.productImages) {
+        Reference ref = _storage.refFromURL(imageUrl);
         await ref.delete();
       }
+      await productRef.delete();
     } catch (e) {
       throw Exception('Error deleting product: $e');
     }
@@ -111,20 +119,31 @@ class ProductRepository {
           .collection('products')
           .doc(productId);
 
-      // If there are new images, upload them and update the product images list
+      // Step 1: Fetch existing image URLs
+      DocumentSnapshot snapshot = await productRef.get();
+      Product existingProduct =
+          Product.fromMap(snapshot.data() as Map<String, dynamic>);
+      List<String> oldImageUrls = existingProduct.productImages;
+
+      // Step 2: Delete old images from Firebase Storage
+      for (String url in oldImageUrls) {
+        Reference ref = _storage.refFromURL(url);
+        await ref.delete();
+      }
+
+      // Step 3: Upload new images
+      List<String> newImageUrls = [];
       if (newImageBytesList != null && newImageBytesList.isNotEmpty) {
-        List<String> newImageUrls = await _uploadImages(
+        newImageUrls = await _uploadImages(
           newImageBytesList,
           sellerId,
           updatedProduct.productName,
         );
-        updatedProduct.productImages.addAll(newImageUrls);
       }
+      updatedProduct.productImages = newImageUrls;
 
-      // Convert the updated product to a map
+      // Step 4: Update Firestore document
       Map<String, dynamic> updatedProductData = updatedProduct.toMap();
-
-      // Update the product document
       await productRef.update(updatedProductData);
     } catch (e) {
       throw Exception('Error updating product: $e');
