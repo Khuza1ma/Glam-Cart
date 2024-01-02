@@ -65,12 +65,15 @@ class ProductDetailScreen extends GetView<ProductController> {
                           itemCount: product.productImages.length,
                           itemBuilder: (context, index) => ClipRRect(
                             borderRadius: BorderRadius.circular(16),
-                            child: CachedNetworkImage(
-                              imageUrl: product.productImages[index],
-                              fit: BoxFit.fill,
-                              width: double.infinity,
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
+                            child: Hero(
+                              tag: product.productId,
+                              child: CachedNetworkImage(
+                                imageUrl: product.productImages[index],
+                                fit: BoxFit.fill,
+                                width: double.infinity,
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              ),
                             ),
                           ),
                         ),
@@ -153,6 +156,7 @@ class ProductDetailScreen extends GetView<ProductController> {
                           ],
                         ),
                       ),
+                      50.verticalSpace,
                     ],
                   ),
                 ),

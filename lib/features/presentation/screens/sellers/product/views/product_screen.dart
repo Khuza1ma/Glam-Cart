@@ -59,10 +59,13 @@ class ProductScreen extends GetView<ProductController> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: CachedNetworkImage(
-                                imageUrl: product.productImages.isNotEmpty
-                                    ? product.productImages.first
-                                    : '',
+                              child: Hero(
+                                tag: product.productId,
+                                child: CachedNetworkImage(
+                                  imageUrl: product.productImages.isNotEmpty
+                                      ? product.productImages.first
+                                      : '',
+                                ),
                               ),
                             ),
                             title: Text(
