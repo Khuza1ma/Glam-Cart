@@ -20,6 +20,7 @@ class HomeScreen extends GetView<HomeController> {
       backgroundColor: AppColors.kF5F5F5,
       appBar: AppBar(
         backgroundColor: AppColors.kF5F5F5,
+        surfaceTintColor: AppColors.kF5F5F5,
         leading: InkWell(
           splashColor: Colors.transparent,
           hoverColor: Colors.transparent,
@@ -138,7 +139,7 @@ class HomeScreen extends GetView<HomeController> {
                                 fontSize: 12,
                                 minimumSize: const Size(60, 25),
                                 hasBottomMargin: false,
-                                buttonColor: AppColors.kBBBBBB,
+                                buttonColor: AppColors.kF5F5F5,
                                 fontColor: AppColors.k000000,
                               ),
                               12.horizontalSpace,
@@ -156,7 +157,7 @@ class HomeScreen extends GetView<HomeController> {
                                 fontSize: 12,
                                 minimumSize: const Size(60, 25),
                                 hasBottomMargin: false,
-                                buttonColor: AppColors.kBBBBBB,
+                                buttonColor: AppColors.kF5F5F5,
                                 fontColor: AppColors.k000000,
                               ),
                             ],

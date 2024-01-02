@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           return GetMaterialApp(
             title: 'Glam Cart',
             theme: ThemeData().copyWith(
+              useMaterial3: true,
               colorScheme: const ColorScheme.light().copyWith(
                 primary: AppColors.kF83758,
               ),

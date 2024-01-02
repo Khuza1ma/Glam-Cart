@@ -26,8 +26,6 @@ class ProductScreen extends GetView<ProductController> {
           ),
         ),
         backgroundColor: AppColors.kF83758,
-        surfaceTintColor: AppColors.kF83758,
-        shadowColor: AppColors.kF83758,
         centerTitle: true,
       ),
       backgroundColor: AppColors.kF5F5F5,
