@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:glam_cart/core/config/app_colors.dart';
 import 'package:glam_cart/core/constants/app_images.dart';
+import 'package:glam_cart/features/data/entity/ad_banner_data.dart';
+import 'package:glam_cart/features/data/entity/features_data.dart';
 import 'package:glam_cart/features/presentation/widgets/app_textfield.dart';
 import 'package:glam_cart/features/presentation/widgets/main_button.dart';
 import 'package:glam_cart/features/presentation/widgets/widget_ext.dart';
@@ -175,41 +177,39 @@ class HomeScreen extends GetView<HomeController> {
                         ),
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                width: 55,
-                                height: 55,
-                                decoration: const ShapeDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      "https://media6.ppl-media.com/tr:h-750"
-                                      ",w-750,c-at_max,dpr-2/static/img/"
-                                      "product/342282/swiss-beauty-love-all"
-                                      "-makeup-kit-matte-liquid-lipstick-lift"
-                                      "-and-curl-mascara-cheek-a-boo-with-free"
-                                      "-pouch_7_display_1672207559_f6411a4c.jpg",
+                          itemBuilder: (context, index) {
+                            var item = featureData[index];
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  width: 55,
+                                  height: 55,
+                                  decoration: ShapeDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        item.imgUrl,
+                                      ),
+                                      fit: BoxFit.cover,
                                     ),
-                                    fit: BoxFit.fill,
+                                    shape: const OvalBorder(),
                                   ),
-                                  shape: OvalBorder(),
                                 ),
-                              ),
-                              4.verticalSpace,
-                              const Text(
-                                'Beauty',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF21003D),
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w400,
+                                4.verticalSpace,
+                                Text(
+                                  item.title,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Color(0xFF21003D),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            );
+                          },
                           separatorBuilder: (context, index) =>
                               10.horizontalSpace,
                           itemCount: 5,
@@ -222,14 +222,14 @@ class HomeScreen extends GetView<HomeController> {
                           borderRadius: BorderRadius.circular(12),
                           child: PageView.builder(
                             controller: controller.pageController,
-                            itemCount: 3,
-                            itemBuilder: (context, index) => CachedNetworkImage(
-                              imageUrl:
-                                  'https://img.freepik.com/free-vector/gradient-sale'
-                                  '-background_23-2148934477.jpg?size=626&ext='
-                                  'jpg&ga=GA1.1.1546980028.1704153600&semt=ais',
-                              fit: BoxFit.cover,
-                            ),
+                            itemCount: bannerData.length,
+                            itemBuilder: (context, index) {
+                              var item = bannerData[index];
+                              return CachedNetworkImage(
+                                imageUrl: item.imgUrl,
+                                fit: BoxFit.cover,
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -237,7 +237,7 @@ class HomeScreen extends GetView<HomeController> {
                       Center(
                         child: SmoothPageIndicator(
                           controller: controller.pageController,
-                          count: 3,
+                          count: bannerData.length,
                           effect: const WormEffect(
                             dotHeight: 10,
                             dotWidth: 10,
