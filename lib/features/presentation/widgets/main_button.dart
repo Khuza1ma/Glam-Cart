@@ -98,6 +98,7 @@ class MainButton extends StatelessWidget {
   final bool isDisable;
   final bool isLoading;
   final double fontSize;
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -131,7 +132,8 @@ class MainButton extends StatelessWidget {
                   child: CircularProgressIndicator(
                     color: AppColors.kFFFFFF,
                     strokeWidth: 2,
-                  ))
+                  ),
+                )
               : _child ?? const SizedBox.shrink(),
         ),
       ),
