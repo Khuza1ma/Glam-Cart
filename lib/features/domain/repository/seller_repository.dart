@@ -33,20 +33,26 @@ class SellerRepository {
       String imageUrl = await _uploadImage(imageBytes, uid);
 
       DocumentReference sellerRef = _firestore.collection('sellers').doc(uid);
-      await _firestore.runTransaction((transaction) async {
-        DocumentSnapshot snapshot = await transaction.get(sellerRef);
-        Map<String, dynamic> data =
-            snapshot.data() as Map<String, dynamic>? ?? {};
+      await _firestore.runTransaction(
+        (transaction) async {
+          DocumentSnapshot snapshot = await transaction.get(sellerRef);
+          Map<String, dynamic> data =
+              snapshot.data() as Map<String, dynamic>? ?? {};
 
-        if (snapshot.exists && data['email'] != seller.email) {
-          transaction.update(sellerRef, {'email': seller.email});
-        }
+          if (snapshot.exists && data['email'] != seller.email) {
+            transaction.update(sellerRef, {'email': seller.email});
+          }
 
-        Map<String, dynamic> sellerData = seller.toMap();
-        sellerData['profileImg'] = imageUrl;
+          Map<String, dynamic> sellerData = seller.toMap();
+          sellerData['profileImg'] = imageUrl;
 
-        transaction.set(sellerRef, sellerData, SetOptions(merge: true));
-      });
+          transaction.set(
+            sellerRef,
+            sellerData,
+            SetOptions(merge: true),
+          );
+        },
+      );
     } catch (e) {
       throw Exception('Error saving seller: $e');
     }
