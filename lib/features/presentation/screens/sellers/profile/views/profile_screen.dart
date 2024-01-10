@@ -15,64 +15,66 @@ class ProfileScreen extends GetView<ProfileController> {
     return Scaffold(
       backgroundColor: AppColors.kF5F5F5,
       body: SafeArea(
-          child: Obx(
-        () => controller.isLoading()
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.kF83758,
-                ),
-              )
-            : SingleChildScrollView(
-                padding: const EdgeInsets.all(30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Stack(
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundColor: AppColors.kFFFFFF,
-                            backgroundImage: controller.pickedImageFile.value !=
-                                    null
-                                ? FileImage(
-                                    controller.pickedImageFile.value!,
-                                  )
-                                : (controller.sellerData()?.profileImg != null
-                                    ? NetworkImage(
-                                        controller.sellerData()!.profileImg,
-                                      )
-                                    : AssetImage(AppAssets.profile)
-                                        as ImageProvider),
-                          ),
-                        ],
+        child: Obx(
+          () => controller.isLoading()
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.kF83758,
+                  ),
+                )
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
+                              radius: 60,
+                              backgroundColor: AppColors.kFFFFFF,
+                              backgroundImage: controller
+                                          .pickedImageFile.value !=
+                                      null
+                                  ? FileImage(
+                                      controller.pickedImageFile.value!,
+                                    )
+                                  : (controller.sellerData()?.profileImg != null
+                                      ? NetworkImage(
+                                          controller.sellerData()!.profileImg,
+                                        )
+                                      : AssetImage(AppAssets.profile)
+                                          as ImageProvider),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    25.verticalSpace,
-                    const Text(
-                      'Personal Details',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
+                      25.verticalSpace,
+                      const Text(
+                        'Personal Details',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    20.verticalSpace,
-                    buildDetailsView(),
-                    30.verticalSpace,
-                    MainButton(
-                      onPressed: () {
-                        Get.offAndToNamed(Routes.editProfile);
-                      },
-                      text: 'Edit Profile',
-                      hasBottomMargin: false,
-                      borderRadius: BorderRadius.circular(8),
-                    )
-                  ],
+                      20.verticalSpace,
+                      buildDetailsView(),
+                      30.verticalSpace,
+                      MainButton(
+                        onPressed: () {
+                          Get.offAndToNamed(Routes.editProfile);
+                        },
+                        text: 'Edit Profile',
+                        hasBottomMargin: false,
+                        borderRadius: BorderRadius.circular(8),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-      )),
+        ),
+      ),
     );
   }
 
