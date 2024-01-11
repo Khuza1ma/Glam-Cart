@@ -30,7 +30,9 @@ class AuthRepository {
         await FirebaseFirestore.instance
             .collection(collectionPath)
             .doc(user.uid)
-            .set(userData.toMap());
+            .set(
+              userData.toMap(),
+            );
         return userData;
       } else {
         throw FirebaseAuthException(
@@ -67,7 +69,7 @@ class AuthRepository {
       return FirebaseAuthResult(
         success: false,
         errorCode: 'general_error',
-        errorMessage:'An unexpected error occurred',
+        errorMessage: 'An unexpected error occurred',
       );
     }
   }
@@ -78,11 +80,17 @@ class AuthRepository {
 
   Future<UserModel?> fetchUserModel(String userId) async {
     try {
-      var userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      var userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
       if (userDoc.exists) {
         return UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
       } else {
-        var sellerDoc = await FirebaseFirestore.instance.collection('sellers').doc(userId).get();
+        var sellerDoc = await FirebaseFirestore.instance
+            .collection('sellers')
+            .doc(userId)
+            .get();
         if (sellerDoc.exists) {
           return UserModel.fromMap(sellerDoc.data() as Map<String, dynamic>);
         }
@@ -93,7 +101,6 @@ class AuthRepository {
       return null;
     }
   }
-
 }
 
 class FirebaseAuthResult {
